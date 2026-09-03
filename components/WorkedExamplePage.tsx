@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { Flow } from "@/components/Flow";
 import { CaseSample } from "@/components/CaseSample";
+import { References } from "@/components/References";
+import { Consultation } from "@/components/Consultation";
+import { CASE_RESOURCES } from "@/lib/resources";
 import type { WorkedExample } from "@/lib/caseContent";
 
 function IconCheck() {
@@ -168,6 +171,12 @@ export function WorkedExamplePage({ ex }: { ex: WorkedExample }) {
           <p className="mt-2 text-[14.5px] leading-relaxed text-[var(--ink)]">{ex.extends}</p>
         </div>
       </section>
+
+      {/* references */}
+      <References groups={CASE_RESOURCES[ex.slug] ?? []} />
+
+      {/* consultation */}
+      <Consultation />
 
       {/* nav to others */}
       <section className="container-x max-w-[880px] py-10">

@@ -103,17 +103,33 @@ export const siteConfig = {
     },
   ],
 
+  /**
+   * Consultation space. This is a direct email, not a booking system.
+   */
+  consultation: {
+    heading: "Work with me",
+    blurb:
+      "I help legal and compliance teams stand up governed AI workflows for the processes on this site: ISO/IEC 27001 readiness, GDPR Data Processing Agreement and DPIA review, and EU AI Act classification and obligation mapping.",
+    offers: [
+      "A readiness or gap assessment against ISO/IEC 27001, the GDPR, or the EU AI Act",
+      "Designing a review workflow with the controls kept inside it (retrieval grounding, encoded playbook, evaluator check, human approval gate)",
+      "A second opinion on an AI system's risk classification and obligations",
+    ],
+    emailSubject: "Consultation enquiry from the portfolio",
+    note: "Goes straight to my inbox. I usually reply within two working days.",
+  },
+
   /** Downloadable working templates, served from /public/templates. */
   templates: [
     {
       file: "/templates/ISO27001-2022-Self-Assessment.xlsx",
-      name: "ISO/IEC 27001:2022 self-assessment",
-      note: "Control-by-control questionnaire across the four Annex A themes, with maturity scoring. A working template I have used to run readiness assessments in practice.",
+      name: "ISO/IEC 27001:2022 clause self-assessment",
+      note: "A tab per management-system clause (4 Context, 5 Leadership, 6 Planning, 7 Support, 8 Operation, 9 Performance Evaluation, 10 Improvement), with maturity scoring and Summary and Action Plan tabs. A working template I have used to run readiness assessments.",
     },
     {
       file: "/templates/ISO27001-2022-Gap-Analysis-and-SoA.xlsx",
       name: "Gap analysis and Statement of Applicability",
-      note: "Gap register plus a Statement of Applicability tab: applicable yes or no, implemented status, and a justification column for every one of the 93 controls.",
+      note: "Two registers: the Section 4 to 10 mandatory requirements, and all 93 Annex A controls with an applies yes/no column, a six-level implementation maturity scale, and a justification column. Doubles as the Statement of Applicability.",
     },
   ],
 } as const;

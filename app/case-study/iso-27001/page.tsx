@@ -3,6 +3,9 @@ import Link from "next/link";
 import { getDemoAnalysis } from "@/lib/loadAnalysis";
 import { siteConfig } from "@/lib/site";
 import { Flow } from "@/components/Flow";
+import { References } from "@/components/References";
+import { Consultation } from "@/components/Consultation";
+import { ISO_RESOURCES } from "@/lib/resources";
 import { PIPELINE_STEPS, VERDICT_ORDER, VERDICT_RUBRIC } from "@/lib/rubric";
 
 export const metadata: Metadata = {
@@ -280,6 +283,9 @@ export default function CaseStudy() {
           </Link>
         </div>
       </article>
+
+      <References groups={ISO_RESOURCES} />
+      <Consultation />
     </div>
   );
 }

@@ -37,8 +37,11 @@ function Nav() {
           <Link href="/tool" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
             Live tool
           </Link>
-          <Link href="/#templates" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
-            Templates
+          <Link href="/resources" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
+            Resources
+          </Link>
+          <Link href="/#consult" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
+            Consult
           </Link>
           <a
             href={siteConfig.links.repo}

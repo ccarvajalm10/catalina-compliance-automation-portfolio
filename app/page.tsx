@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getDemoAnalysis } from "@/lib/loadAnalysis";
 import { siteConfig } from "@/lib/site";
 import { HeroArt } from "@/components/HeroArt";
+import { Consultation } from "@/components/Consultation";
 
 export default function Home() {
   const a = getDemoAnalysis();
@@ -215,6 +216,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ================= consultation ================= */}
+      <Consultation variant="band" />
 
       {/* ================= cta ================= */}
       <section className="container-x py-16">
