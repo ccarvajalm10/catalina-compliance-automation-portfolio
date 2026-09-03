@@ -50,7 +50,7 @@ export default function Home() {
                 alt={siteConfig.author.name}
                 width={132}
                 height={132}
-                className="mb-4 h-[132px] w-[132px] rounded-full object-cover ring-1 ring-[var(--line)]"
+                className="mb-4 h-[132px] w-[132px] rounded-full object-cover object-[center_22%] ring-1 ring-[var(--line)]"
               />
             )}
             <div className="text-lg font-[660]">{siteConfig.author.name}</div>
