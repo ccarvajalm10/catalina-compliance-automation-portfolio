@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* ── design tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --bg: #f7fafc;
+  --surface: #ffffff;
+  --ink: #0b0b0cE6;
+  --ink-2: #5b6472;
+  --line: #e6ecf2;
+  --brand: #0098f2;
+  --brand-tint: #0098f214;
+  --violet: #6c56fc;
+  --violet-tint: #6c56fc14;
+  --magenta: #f200ca;
+  --magenta-tint: #f200ca14;
+  --green: #2e9e3f;
+  --green-tint: #2e9e3f1f;
+  --amber: #d68a00;
+  --amber-tint: #d68a001f;
+  --red: #e5484d;
+  --red-tint: #e5484d1f;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── small reusable primitives ─────────────────────────────────────────────── */
+.container-x {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink-2);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid transparent;
+  transition: transform 0.06s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-primary {
+  background: var(--ink);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #000;
+}
+.btn-ghost {
+  background: var(--surface);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.btn-ghost:hover {
+  border-color: #cfd8e3;
+}
+
+.verdict-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  flex: none;
+}
+.v-met {
+  color: var(--green);
+  background: var(--green-tint);
+}
+.v-partial {
+  color: var(--amber);
+  background: var(--amber-tint);
+}
+.v-gap {
+  color: var(--red);
+  background: var(--red-tint);
+}
+.v-na {
+  color: var(--ink-2);
+  background: #0b0b0c0f;
+}
+
+.prose-block p {
+  margin-block: 0.85em;
+  line-height: 1.7;
+  color: #33383f;
+}
+.prose-block h2 {
+  font-size: 22px;
+  font-weight: 680;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  letter-spacing: -0.01em;
+}
+.prose-block h3 {
+  font-size: 16px;
+  font-weight: 650;
+  margin-top: 1.6em;
+  margin-bottom: 0.4em;
+}
+.prose-block ul {
+  list-style: disc;
+  padding-left: 1.2em;
+  line-height: 1.7;
+  color: #33383f;
+}
+.prose-block li {
+  margin-block: 0.3em;
+}
+.prose-block strong {
+  color: var(--ink);
+}

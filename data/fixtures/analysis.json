@@ -1,0 +1,1166 @@
+{
+  "company": "Northwind Cloud Ltd",
+  "generatedAt": "2025-08-28T09:00:00.000Z",
+  "mode": "demo",
+  "model": null,
+  "documentsAnalyzed": [
+    "Information Security Policy",
+    "Access Control Policy",
+    "Asset Management Policy",
+    "HR Security Policy",
+    "Supplier Security Policy",
+    "Incident Response Plan",
+    "Secure Development Policy",
+    "Cryptography Policy",
+    "Business Continuity & Backup Policy",
+    "Acceptable Use & Remote Working Policy",
+    "Evidence Register — Northwind Cloud Ltd"
+  ],
+  "findings": [
+    {
+      "controlId": "A.5.1",
+      "verdict": "Met",
+      "confidence": 0.95,
+      "rationale": "A full policy set is defined, board-approved, published and acknowledged, with an annual review cycle.",
+      "evidence": [
+        {
+          "source": "Information Security Policy",
+          "quote": "All are published on the company wiki and staff acknowledge them on hire."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.2",
+      "verdict": "Met",
+      "confidence": 0.82,
+      "rationale": "Security governance roles are defined and asset/resource owners are recorded.",
+      "evidence": [
+        {
+          "source": "Information Security Policy",
+          "quote": "meets quarterly, reviews KPIs, risks, incidents and audit results, and records minutes."
+        },
+        {
+          "source": "Asset Management Policy",
+          "quote": "Each asset has a named owner recorded in the inventory."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.3",
+      "verdict": "Partial",
+      "confidence": 0.62,
+      "rationale": "Segregation is enforced for code changes and privileged access but there is no documented duties matrix covering other conflicting roles.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "changes require pull request and one review."
+        }
+      ],
+      "remediation": "Document a segregation-of-duties matrix covering conflicting roles beyond engineering."
+    },
+    {
+      "controlId": "A.5.4",
+      "verdict": "Met",
+      "confidence": 0.8,
+      "rationale": "Management drives security through the Steering Committee and mandatory training tracked to completion.",
+      "evidence": [
+        {
+          "source": "Information Security Policy",
+          "quote": "The Information Security Steering Committee (CISO, CTO, Head of People, Head of Legal)"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.5",
+      "verdict": "Partial",
+      "confidence": 0.58,
+      "rationale": "Regulator contact exists for breach notification, but there is no maintained list of relevant authorities and triggers.",
+      "evidence": [
+        {
+          "source": "Incident Response Plan",
+          "quote": "Customer and regulatory notification decisions are made by the Comms Lead with Legal."
+        }
+      ],
+      "remediation": "Maintain a documented list of relevant authorities (regulator, law enforcement, CERT) with contacts and triggers."
+    },
+    {
+      "controlId": "A.5.6",
+      "verdict": "Gap",
+      "confidence": 0.8,
+      "rationale": "No evidence of membership in security forums, ISACs or special interest groups.",
+      "evidence": [],
+      "remediation": "Join relevant security groups and record participation."
+    },
+    {
+      "controlId": "A.5.7",
+      "verdict": "Gap",
+      "confidence": 0.75,
+      "rationale": "SIEM rules exist but there is no process to collect and analyse threat intelligence.",
+      "evidence": [
+        {
+          "source": "Evidence Register — Northwind Cloud Ltd",
+          "quote": "coverage not mapped to a threat model"
+        }
+      ],
+      "remediation": "Establish a lightweight threat intelligence process feeding detection rules and risk reviews."
+    },
+    {
+      "controlId": "A.5.8",
+      "verdict": "Gap",
+      "confidence": 0.7,
+      "rationale": "Threat modelling is informal for large features; security is not a required part of project management.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "threat modelling is done informally for large features"
+        }
+      ],
+      "remediation": "Add a security checklist/gate to the project and feature delivery process."
+    },
+    {
+      "controlId": "A.5.9",
+      "verdict": "Met",
+      "confidence": 0.9,
+      "rationale": "Endpoints, cloud and SaaS are inventoried automatically with named owners.",
+      "evidence": [
+        {
+          "source": "Asset Management Policy",
+          "quote": "Cloud assets are inventoried via AWS Config and tagged with `owner` and `data-class`."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.10",
+      "verdict": "Met",
+      "confidence": 0.88,
+      "rationale": "Acceptable use and handling rules are documented and acknowledged.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "Customer Data may only be stored in approved systems, never on local disks or personal cloud storage."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.11",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "Assets are recovered and recorded on offboarding.",
+      "evidence": [
+        {
+          "source": "Asset Management Policy",
+          "quote": "IT recovers company laptops and hardware keys and records their return in the offboarding checklist."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.12",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "A four-tier classification scheme with handling rules is defined.",
+      "evidence": [
+        {
+          "source": "Asset Management Policy",
+          "quote": "Information is classified as **Public**, **Internal**, **Confidential**, or **Customer Data**."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.13",
+      "verdict": "Partial",
+      "confidence": 0.7,
+      "rationale": "A labelling scheme is drafted but not yet rolled out.",
+      "evidence": [
+        {
+          "source": "Asset Management Policy",
+          "quote": "labelling scheme for classified documents and emails has been drafted"
+        }
+      ],
+      "remediation": "Roll out the labelling scheme and add it to onboarding and handling guidance."
+    },
+    {
+      "controlId": "A.5.14",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "Transport encryption is strong, but there are no transfer rules, procedures or agreements for other channels.",
+      "evidence": [
+        {
+          "source": "Cryptography Policy",
+          "quote": "All external connections use TLS 1.2 or higher."
+        }
+      ],
+      "remediation": "Define an information transfer standard covering channels, approvals and agreements."
+    },
+    {
+      "controlId": "A.5.15",
+      "verdict": "Met",
+      "confidence": 0.92,
+      "rationale": "A role-based access model with owner approval is defined and applied.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "Requests are raised in the ticket system and approved by the resource owner."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.16",
+      "verdict": "Met",
+      "confidence": 0.9,
+      "rationale": "Identity lifecycle is automated from the HR system with unique named accounts.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "Each person has one unique named account. Shared accounts are prohibited."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.17",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "Authentication information is controlled: screened passwords, SSO, and hardware keys for production.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "Password policy: minimum 14 characters, screened against breached-password lists, no forced rotation."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.18",
+      "verdict": "Met",
+      "confidence": 0.88,
+      "rationale": "Access rights are provisioned by role and reviewed quarterly, with escalation for overdue reviews.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "User access to production systems and customer data is reviewed quarterly by resource owners."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.19",
+      "verdict": "Partial",
+      "confidence": 0.65,
+      "rationale": "A supplier assessment process exists, but the governing policy is an unapproved draft.",
+      "evidence": [
+        {
+          "source": "Supplier Security Policy",
+          "quote": "the requesting team completes a supplier risk questionnaire and Legal reviews the supplier's security"
+        }
+      ],
+      "remediation": "Approve and publish the Supplier Security Policy and complete the supplier register."
+    },
+    {
+      "controlId": "A.5.20",
+      "verdict": "Partial",
+      "confidence": 0.63,
+      "rationale": "Security clauses are in the MSA template, but coverage across all existing data-handling suppliers is unconfirmed.",
+      "evidence": [
+        {
+          "source": "Supplier Security Policy",
+          "quote": "Security requirements are included in the master services agreement template."
+        }
+      ],
+      "remediation": "Confirm security clauses are in place for every supplier handling Confidential or Customer Data."
+    },
+    {
+      "controlId": "A.5.21",
+      "verdict": "Gap",
+      "confidence": 0.82,
+      "rationale": "ICT supply-chain risk is explicitly not assessed.",
+      "evidence": [
+        {
+          "source": "Supplier Security Policy",
+          "quote": "The ICT supply-chain risk (sub-processors of our sub-processors) is not formally assessed."
+        }
+      ],
+      "remediation": "Assess ICT supply-chain risk for critical products and services and record it."
+    },
+    {
+      "controlId": "A.5.22",
+      "verdict": "Gap",
+      "confidence": 0.8,
+      "rationale": "There is no process to monitor supplier service levels or manage supplier-side changes.",
+      "evidence": [
+        {
+          "source": "Supplier Security Policy",
+          "quote": "There is no defined process for monitoring supplier service levels or handling supplier-side changes."
+        }
+      ],
+      "remediation": "Define supplier performance and change monitoring with a review cadence."
+    },
+    {
+      "controlId": "A.5.23",
+      "verdict": "Partial",
+      "confidence": 0.66,
+      "rationale": "Cloud acquisition is gated by CISO approval, but there is no documented exit strategy or shared-responsibility mapping.",
+      "evidence": [
+        {
+          "source": "Supplier Security Policy",
+          "quote": "Use of new cloud services that will store Customer Data must be approved by the CISO."
+        }
+      ],
+      "remediation": "Document a cloud exit strategy and shared-responsibility allocation."
+    },
+    {
+      "controlId": "A.5.24",
+      "verdict": "Met",
+      "confidence": 0.9,
+      "rationale": "Incident roles, channels and runbooks are defined and the plan has been tested.",
+      "evidence": [
+        {
+          "source": "Incident Response Plan",
+          "quote": "Documented runbooks exist for: account compromise, data exposure, ransomware/malware,"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.25",
+      "verdict": "Met",
+      "confidence": 0.82,
+      "rationale": "Events are triaged against a severity matrix and an incident decision is made by the Incident Commander.",
+      "evidence": [
+        {
+          "source": "Incident Response Plan",
+          "quote": "The Incident Commander decides whether an event is an incident."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.26",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "Response follows documented runbooks with actions recorded in the incident ticket.",
+      "evidence": [
+        {
+          "source": "Incident Response Plan",
+          "quote": "Containment, eradication and recovery steps are recorded in the incident ticket."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.27",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "Post-incident reviews are held for higher-severity incidents and themes reported to management.",
+      "evidence": [
+        {
+          "source": "Incident Response Plan",
+          "quote": "A post-incident review is held within 10 working days for all SEV-1 and SEV-2 incidents."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.28",
+      "verdict": "Met",
+      "confidence": 0.8,
+      "rationale": "A forensic-readiness checklist and chain-of-custody record are used when evidence must be preserved.",
+      "evidence": [
+        {
+          "source": "Incident Response Plan",
+          "quote": "maintains a chain-of-custody record."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.29",
+      "verdict": "Partial",
+      "confidence": 0.64,
+      "rationale": "A BCP covering key scenarios exists but has never been exercised.",
+      "evidence": [
+        {
+          "source": "Business Continuity & Backup Policy",
+          "quote": "A business continuity plan exists covering loss of the primary AWS region, loss of the office, and loss of key staff."
+        }
+      ],
+      "remediation": "Exercise the BCP and confirm security controls hold during failover."
+    },
+    {
+      "controlId": "A.5.30",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "RTO/RPO and multi-region capability are defined, but ICT continuity requirements are not mapped to tested recovery procedures.",
+      "evidence": [
+        {
+          "source": "Business Continuity & Backup Policy",
+          "quote": "ICT continuity requirements (A.5.30) are not mapped to specific recovery procedures."
+        }
+      ],
+      "remediation": "Map ICT continuity requirements to tested recovery procedures."
+    },
+    {
+      "controlId": "A.5.31",
+      "verdict": "Met",
+      "confidence": 0.8,
+      "rationale": "A legal and regulatory requirements register is maintained.",
+      "evidence": [
+        {
+          "source": "Evidence Register — Northwind Cloud Ltd",
+          "quote": "Legal/regulatory requirements register (GDPR, DPA 2018, contractual)"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.5.32",
+      "verdict": "Gap",
+      "confidence": 0.65,
+      "rationale": "Dependency scanning covers vulnerabilities but there is no IP/licensing compliance procedure.",
+      "evidence": [],
+      "remediation": "Add an IP and software-licensing compliance procedure, including open-source license scanning."
+    },
+    {
+      "controlId": "A.5.33",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "A retention schedule exists, but protection of statutory records against loss and falsification is not documented.",
+      "evidence": [
+        {
+          "source": "Evidence Register — Northwind Cloud Ltd",
+          "quote": "Data retention schedule"
+        }
+      ],
+      "remediation": "Define record-protection controls (integrity, retention, disposal) for key record types."
+    },
+    {
+      "controlId": "A.5.34",
+      "verdict": "Partial",
+      "confidence": 0.62,
+      "rationale": "DPAs and a GDPR register exist, but there is no consolidated PII protection standard or record of processing activities.",
+      "evidence": [
+        {
+          "source": "Supplier Security Policy",
+          "quote": "Data processing agreements are signed with all suppliers that process personal data."
+        }
+      ],
+      "remediation": "Document a PII protection standard and a record of processing activities."
+    },
+    {
+      "controlId": "A.5.35",
+      "verdict": "Partial",
+      "confidence": 0.58,
+      "rationale": "Independent technical testing (annual pen test) occurs, but no independent review of the ISMS itself has been done yet.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "An external penetration test is performed annually and findings are tracked to closure."
+        }
+      ],
+      "remediation": "Complete the first internal ISMS audit and schedule an independent review."
+    },
+    {
+      "controlId": "A.5.36",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "Policy review completion is tracked, but there is no systematic control-by-control compliance check.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "Review completion is tracked by the CISO; incomplete reviews are escalated to the Steering Committee."
+        }
+      ],
+      "remediation": "Introduce periodic compliance checks against each policy and feed results to management review."
+    },
+    {
+      "controlId": "A.5.37",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "Incident runbooks and infrastructure-as-code exist, but there is no general set of documented operating procedures for routine administration.",
+      "evidence": [
+        {
+          "source": "Incident Response Plan",
+          "quote": "Documented runbooks exist for: account compromise, data exposure, ransomware/malware,"
+        }
+      ],
+      "remediation": "Document standard operating procedures for recurring administration tasks."
+    },
+    {
+      "controlId": "A.6.1",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "Pre-employment screening covers identity, right to work, references and (where lawful) criminal record checks for privileged roles.",
+      "evidence": [
+        {
+          "source": "HR Security Policy",
+          "quote": "all candidates undergo identity verification, right-to-work checks,"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.6.2",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "Employment contracts and contractor SOWs include information security obligations.",
+      "evidence": [
+        {
+          "source": "HR Security Policy",
+          "quote": "Employment contracts include an information security clause and reference the Acceptable"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.6.3",
+      "verdict": "Met",
+      "confidence": 0.88,
+      "rationale": "Induction, annual awareness training, secure-coding training and quarterly phishing simulations are run and tracked.",
+      "evidence": [
+        {
+          "source": "HR Security Policy",
+          "quote": "All staff complete annual security awareness training (KnowBe4); completion is tracked"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.6.4",
+      "verdict": "Partial",
+      "confidence": 0.66,
+      "rationale": "Disciplinary action is referenced in the ISP but there is no written disciplinary process for security violations.",
+      "evidence": [
+        {
+          "source": "HR Security Policy",
+          "quote": "There is no written disciplinary procedure specific to security."
+        }
+      ],
+      "remediation": "Document a formal disciplinary process for security policy violations, linked to HR procedures."
+    },
+    {
+      "controlId": "A.6.5",
+      "verdict": "Met",
+      "confidence": 0.78,
+      "rationale": "Continuing obligations are reinforced at exit and access/asset removal is triggered by offboarding.",
+      "evidence": [
+        {
+          "source": "HR Security Policy",
+          "quote": "The employee is reminded in the exit meeting of continuing confidentiality"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.6.6",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "All personnel and contractors sign confidentiality agreements, reviewed by Legal every two years.",
+      "evidence": [
+        {
+          "source": "HR Security Policy",
+          "quote": "All employees and contractors sign a confidentiality agreement before their start date."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.6.7",
+      "verdict": "Met",
+      "confidence": 0.82,
+      "rationale": "Remote working is governed: managed encrypted devices only, SSO+MFA, VPN and hardware keys for production.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "Only MDM-managed, encrypted devices may access company systems."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.6.8",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "A clear reporting channel for suspected events exists and reports are logged quickly.",
+      "evidence": [
+        {
+          "source": "Incident Response Plan",
+          "quote": "Staff report suspected incidents via the `#security-incidents` Slack channel or"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.7.1",
+      "verdict": "Partial",
+      "confidence": 0.55,
+      "rationale": "Remote-first with one small office that has lockable storage; the data-centre perimeter is inherited from AWS but not documented as such.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "The London office has lockable storage."
+        }
+      ],
+      "remediation": "Document office physical security arrangements and the reliance on AWS for data-centre perimeter."
+    },
+    {
+      "controlId": "A.7.2",
+      "verdict": "Gap",
+      "confidence": 0.6,
+      "rationale": "No documented office entry controls or visitor management.",
+      "evidence": [],
+      "remediation": "Document and implement office entry controls (badge access, visitor log)."
+    },
+    {
+      "controlId": "A.7.3",
+      "verdict": "Partial",
+      "confidence": 0.52,
+      "rationale": "Lockable storage is mentioned but there is no description of how offices and rooms holding equipment or records are secured.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "The London office has lockable storage."
+        }
+      ],
+      "remediation": "Document how office areas holding equipment and records are secured."
+    },
+    {
+      "controlId": "A.7.4",
+      "verdict": "Gap",
+      "confidence": 0.6,
+      "rationale": "No physical security monitoring (alarm/CCTV or landlord equivalent) is described.",
+      "evidence": [],
+      "remediation": "Record physical monitoring arrangements for the office."
+    },
+    {
+      "controlId": "A.7.5",
+      "verdict": "Partial",
+      "confidence": 0.55,
+      "rationale": "Environmental protection for production is inherited from AWS and evidenced; the office is not assessed.",
+      "evidence": [
+        {
+          "source": "Evidence Register — Northwind Cloud Ltd",
+          "quote": "AWS SOC 2 Type II report (reviewed)"
+        }
+      ],
+      "remediation": "Record environmental-threat protection reliance on AWS and assess the office."
+    },
+    {
+      "controlId": "A.7.6",
+      "verdict": "Not Applicable",
+      "confidence": 0.7,
+      "rationale": "There are no designated secure areas: all production is in AWS and staff work remotely.",
+      "evidence": [],
+      "remediation": null
+    },
+    {
+      "controlId": "A.7.7",
+      "verdict": "Met",
+      "confidence": 0.8,
+      "rationale": "Automatic screen lock and clear-desk rules for printed confidential material are defined.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "Screens lock automatically after 5 minutes."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.7.8",
+      "verdict": "Not Applicable",
+      "confidence": 0.65,
+      "rationale": "No on-premises server or network equipment; production is hosted by AWS and end-user laptops are covered by endpoint controls.",
+      "evidence": [],
+      "remediation": null
+    },
+    {
+      "controlId": "A.7.9",
+      "verdict": "Met",
+      "confidence": 0.75,
+      "rationale": "Off-premises assets are protected via MDM enrolment, full-disk encryption and remote-working rules.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "Only MDM-managed, encrypted devices may access company systems."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.7.10",
+      "verdict": "Partial",
+      "confidence": 0.62,
+      "rationale": "Endpoint encryption and USB blocking are in place, but there is no documented media handling, transport or disposal procedure.",
+      "evidence": [
+        {
+          "source": "Asset Management Policy",
+          "quote": "Portable media (USB drives) are blocked by MDM policy."
+        }
+      ],
+      "remediation": "Document storage-media handling and disposal across its lifecycle."
+    },
+    {
+      "controlId": "A.7.11",
+      "verdict": "Not Applicable",
+      "confidence": 0.62,
+      "rationale": "No owned data centre; utility resilience for production is an AWS responsibility and the office is not an information processing facility.",
+      "evidence": [],
+      "remediation": null
+    },
+    {
+      "controlId": "A.7.12",
+      "verdict": "Not Applicable",
+      "confidence": 0.62,
+      "rationale": "No on-premises infrastructure cabling in scope.",
+      "evidence": [],
+      "remediation": null
+    },
+    {
+      "controlId": "A.7.13",
+      "verdict": "Partial",
+      "confidence": 0.55,
+      "rationale": "Endpoint patching and health are evidenced via MDM, but there is no documented maintenance policy.",
+      "evidence": [
+        {
+          "source": "Evidence Register — Northwind Cloud Ltd",
+          "quote": "MDM compliance report (disk encryption, USB blocking, patch status)"
+        }
+      ],
+      "remediation": "Document equipment maintenance expectations for endpoints."
+    },
+    {
+      "controlId": "A.7.14",
+      "verdict": "Gap",
+      "confidence": 0.7,
+      "rationale": "Laptops are recovered on offboarding but there is no documented secure wipe or disposal procedure.",
+      "evidence": [],
+      "remediation": "Define and evidence secure wipe/disposal for endpoints and media before re-use or disposal."
+    },
+    {
+      "controlId": "A.8.1",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "Endpoints are MDM-managed, encrypted and restricted to approved access paths.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "Only MDM-managed, encrypted devices may access company systems."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.2",
+      "verdict": "Met",
+      "confidence": 0.9,
+      "rationale": "Privileged production access is just-in-time, time-bound and session-recorded, with monthly review.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "Privileged/admin access to production is time-bound (max 8 hours) and requested"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.3",
+      "verdict": "Met",
+      "confidence": 0.82,
+      "rationale": "Access to information is restricted by least-privilege roles with owner approval.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "Requests are raised in the ticket system and approved by the resource owner."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.4",
+      "verdict": "Met",
+      "confidence": 0.8,
+      "rationale": "Source code access is team-based with branch protection on main.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "Access to the Git organisation is granted by team."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.5",
+      "verdict": "Met",
+      "confidence": 0.9,
+      "rationale": "SSO with enforced MFA for all users and FIDO2 keys for production.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "Multi-factor authentication is enforced for all users on all SSO logins."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.6",
+      "verdict": "Partial",
+      "confidence": 0.55,
+      "rationale": "Multi-AZ resilience is described, but there is no documented capacity monitoring or forecasting process.",
+      "evidence": [
+        {
+          "source": "Business Continuity & Backup Policy",
+          "quote": "Production runs across three availability zones in eu-west-1."
+        }
+      ],
+      "remediation": "Document capacity monitoring thresholds and a review cadence."
+    },
+    {
+      "controlId": "A.8.7",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "Security software may not be disabled, implying endpoint protection, but there is no explicit anti-malware standard or coverage evidence.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "Prohibited: disabling security software, installing unapproved software with admin rights,"
+        }
+      ],
+      "remediation": "Document anti-malware/EDR controls and include coverage in the MDM compliance report."
+    },
+    {
+      "controlId": "A.8.8",
+      "verdict": "Met",
+      "confidence": 0.72,
+      "rationale": "Dependency scanning, SAST, secret scanning and an annual pen-test tracker manage technical vulnerabilities, though the last pen test is overdue.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "dependency vulnerability scanning (Dependabot), static analysis"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.9",
+      "verdict": "Partial",
+      "confidence": 0.58,
+      "rationale": "Configuration is tracked via AWS Config and MDM, but secure configuration baselines are not defined or monitored against.",
+      "evidence": [
+        {
+          "source": "Asset Management Policy",
+          "quote": "Cloud assets are inventoried via AWS Config"
+        }
+      ],
+      "remediation": "Define and monitor secure configuration baselines for endpoints, cloud and network."
+    },
+    {
+      "controlId": "A.8.10",
+      "verdict": "Partial",
+      "confidence": 0.55,
+      "rationale": "Leaver accounts are deleted after 30 days and a retention schedule exists, but there is no comprehensive deletion process across systems and backups.",
+      "evidence": [
+        {
+          "source": "Access Control Policy",
+          "quote": "accounts are disabled within 2 hours of the termination event and deleted after 30 days."
+        }
+      ],
+      "remediation": "Document information deletion procedures including customer offboarding and backups."
+    },
+    {
+      "controlId": "A.8.11",
+      "verdict": "Gap",
+      "confidence": 0.68,
+      "rationale": "No data masking or pseudonymisation is described where data is displayed or exported.",
+      "evidence": [],
+      "remediation": "Assess where masking/pseudonymisation is required and implement it."
+    },
+    {
+      "controlId": "A.8.12",
+      "verdict": "Partial",
+      "confidence": 0.5,
+      "rationale": "Storage restrictions and USB blocking reduce leakage risk, but there is no DLP tooling for email or SaaS egress.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "Customer Data may only be stored in approved systems, never on local disks or personal cloud storage."
+        }
+      ],
+      "remediation": "Evaluate DLP controls for email and SaaS data egress."
+    },
+    {
+      "controlId": "A.8.13",
+      "verdict": "Partial",
+      "confidence": 0.66,
+      "rationale": "Backups are configured (PITR, cross-region replication) but restoration has never been tested end-to-end.",
+      "evidence": [
+        {
+          "source": "Evidence Register — Northwind Cloud Ltd",
+          "quote": "Backup success only"
+        }
+      ],
+      "remediation": "Perform and document periodic backup restoration tests."
+    },
+    {
+      "controlId": "A.8.14",
+      "verdict": "Met",
+      "confidence": 0.8,
+      "rationale": "Production runs across three AZs with a multi-AZ database and automatic failover.",
+      "evidence": [
+        {
+          "source": "Business Continuity & Backup Policy",
+          "quote": "The database is\nmulti-AZ with automatic failover."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.15",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "CloudTrail and application logs are retained for 400 days, but there is no documented log-review procedure.",
+      "evidence": [
+        {
+          "source": "Evidence Register — Northwind Cloud Ltd",
+          "quote": "no documented log-review procedure"
+        }
+      ],
+      "remediation": "Document what is logged, how logs are protected, and a log-review procedure."
+    },
+    {
+      "controlId": "A.8.16",
+      "verdict": "Partial",
+      "confidence": 0.58,
+      "rationale": "A SIEM with ~15 alert rules exists, but detection coverage is not mapped to a threat model.",
+      "evidence": [
+        {
+          "source": "Evidence Register — Northwind Cloud Ltd",
+          "quote": "coverage not mapped to a threat model"
+        }
+      ],
+      "remediation": "Map detection coverage to prioritised threats and review rule effectiveness."
+    },
+    {
+      "controlId": "A.8.17",
+      "verdict": "Gap",
+      "confidence": 0.6,
+      "rationale": "Clock synchronisation is not documented for in-scope systems.",
+      "evidence": [],
+      "remediation": "Confirm and document time-source synchronisation for in-scope systems."
+    },
+    {
+      "controlId": "A.8.18",
+      "verdict": "Gap",
+      "confidence": 0.58,
+      "rationale": "No control is described over utility programs capable of overriding system or application controls.",
+      "evidence": [],
+      "remediation": "Restrict and log the use of privileged utility programs."
+    },
+    {
+      "controlId": "A.8.19",
+      "verdict": "Partial",
+      "confidence": 0.58,
+      "rationale": "The deployment pipeline controls changes to production, but there is no explicit rule set for installing software on operational systems.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "Deployments to production are automated and logged, and\ncan be rolled back."
+        }
+      ],
+      "remediation": "Document rules for installing and updating software on operational systems."
+    },
+    {
+      "controlId": "A.8.20",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "VPC, mTLS and VPN protections are in place, but there is no network security policy or standard.",
+      "evidence": [
+        {
+          "source": "Cryptography Policy",
+          "quote": "Internal service-to-service traffic in the production VPC uses mTLS."
+        }
+      ],
+      "remediation": "Document network security controls and management responsibilities."
+    },
+    {
+      "controlId": "A.8.21",
+      "verdict": "Partial",
+      "confidence": 0.52,
+      "rationale": "VPN and VPC controls are referenced, but the security features and service levels of network services are not documented.",
+      "evidence": [
+        {
+          "source": "Acceptable Use & Remote Working Policy",
+          "quote": "production access additionally requires the company VPN and a hardware key."
+        }
+      ],
+      "remediation": "Document the security mechanisms and service levels for network services."
+    },
+    {
+      "controlId": "A.8.22",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "Environments are separated into distinct AWS accounts, but network-level segmentation within production is not detailed.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "Development, staging and production are separate AWS accounts."
+        }
+      ],
+      "remediation": "Document the network segmentation design within the production environment."
+    },
+    {
+      "controlId": "A.8.23",
+      "verdict": "Gap",
+      "confidence": 0.62,
+      "rationale": "No web or DNS filtering is described for managed endpoints.",
+      "evidence": [],
+      "remediation": "Implement DNS/web filtering on managed devices and record it."
+    },
+    {
+      "controlId": "A.8.24",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "Encryption in transit and at rest with KMS customer-managed keys and annual rotation is defined.",
+      "evidence": [
+        {
+          "source": "Cryptography Policy",
+          "quote": "encrypted with AES-256 using\nAWS KMS customer-managed keys."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.25",
+      "verdict": "Met",
+      "confidence": 0.8,
+      "rationale": "Secure development rules cover environments, review, CI security gates and testing.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "All changes go through pull request with at least one peer review and a passing CI pipeline."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.26",
+      "verdict": "Partial",
+      "confidence": 0.58,
+      "rationale": "A secure coding guide exists, but security requirements are not formally specified and approved per application or major feature.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "Engineers follow the internal secure coding guide"
+        }
+      ],
+      "remediation": "Add a step to specify and approve security requirements for new applications and major features."
+    },
+    {
+      "controlId": "A.8.27",
+      "verdict": "Gap",
+      "confidence": 0.7,
+      "rationale": "Secure architecture and engineering principles are not documented.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "Secure architecture principles are not written down."
+        }
+      ],
+      "remediation": "Document secure system architecture and engineering principles and apply them in design reviews."
+    },
+    {
+      "controlId": "A.8.28",
+      "verdict": "Met",
+      "confidence": 0.78,
+      "rationale": "Secure coding principles are defined and enforced with static analysis.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "input validation, output encoding,\nparameterised queries, no secrets in code"
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.29",
+      "verdict": "Partial",
+      "confidence": 0.6,
+      "rationale": "SAST and weekly DAST run in the pipeline, but the annual penetration test is overdue and unscheduled.",
+      "evidence": [
+        {
+          "source": "Evidence Register — Northwind Cloud Ltd",
+          "quote": "10 months old"
+        }
+      ],
+      "remediation": "Schedule the annual penetration test and define security test gates for releases."
+    },
+    {
+      "controlId": "A.8.30",
+      "verdict": "Not Applicable",
+      "confidence": 0.62,
+      "rationale": "All development is in-house; no outsourced development is described.",
+      "evidence": [],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.31",
+      "verdict": "Met",
+      "confidence": 0.85,
+      "rationale": "Development, staging and production are separate AWS accounts with no standing developer access to production.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "Developers have no standing\naccess to production."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.32",
+      "verdict": "Met",
+      "confidence": 0.82,
+      "rationale": "Changes require peer-reviewed pull requests and a passing pipeline, with automated, reversible deployments.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "All changes go through pull request with at least one peer review and a passing CI pipeline."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.33",
+      "verdict": "Met",
+      "confidence": 0.72,
+      "rationale": "Production data is never copied into lower environments.",
+      "evidence": [
+        {
+          "source": "Secure Development Policy",
+          "quote": "Production data is never copied into lower environments."
+        }
+      ],
+      "remediation": null
+    },
+    {
+      "controlId": "A.8.34",
+      "verdict": "Gap",
+      "confidence": 0.6,
+      "rationale": "There is no documented approach to planning and agreeing assurance testing on operational systems.",
+      "evidence": [],
+      "remediation": "Define how audit and assurance testing on production is planned and agreed with management."
+    }
+  ],
+  "summary": {
+    "met": 39,
+    "partial": 34,
+    "gap": 15,
+    "notApplicable": 5,
+    "coverageScore": 64
+  }
+}

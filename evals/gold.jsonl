@@ -1,0 +1,30 @@
+{"controlId":"A.5.1","expectedVerdict":"Met","note":"Board-approved policy set, published, acknowledged, annual review cycle. Unambiguous."}
+{"controlId":"A.5.6","expectedVerdict":"Gap","note":"No mention anywhere of security forums / ISAC / special interest group membership."}
+{"controlId":"A.5.7","expectedVerdict":"Gap","note":"SIEM rules exist but no threat-intelligence collection/analysis process; evidence register even notes coverage is not threat-mapped."}
+{"controlId":"A.5.9","expectedVerdict":"Met","note":"Automated endpoint + AWS Config + SaaS inventory, every asset has a named owner."}
+{"controlId":"A.5.12","expectedVerdict":"Met","note":"Four-tier scheme (Public/Internal/Confidential/Customer Data) with handling rules appendix."}
+{"controlId":"A.5.13","expectedVerdict":"Partial","note":"Labelling scheme drafted but explicitly not rolled out. Addressed but not operating -> Partial, not Gap."}
+{"controlId":"A.5.15","expectedVerdict":"Met","note":"Role-based access via Okta groups, owner approval, ticketed requests."}
+{"controlId":"A.5.16","expectedVerdict":"Met","note":"Identity lifecycle automated from HRIS, unique named accounts, JML workflow."}
+{"controlId":"A.5.19","expectedVerdict":"Partial","note":"Assessment process exists and runs, but the governing policy is an unapproved draft and the register is incomplete."}
+{"controlId":"A.5.21","expectedVerdict":"Gap","note":"Policy text explicitly states ICT supply-chain risk is not formally assessed."}
+{"controlId":"A.5.22","expectedVerdict":"Gap","note":"Policy text explicitly states there is no process to monitor supplier service levels or changes."}
+{"controlId":"A.5.23","expectedVerdict":"Partial","note":"Cloud acquisition gated by CISO approval, but no documented exit strategy or shared-responsibility mapping."}
+{"controlId":"A.5.35","expectedVerdict":"Partial","note":"Annual external pen test gives partial independent assurance, but no independent review of the ISMS itself yet; first internal audit still pending."}
+{"controlId":"A.6.1","expectedVerdict":"Met","note":"Identity, right-to-work, two references, plus criminal checks for privileged roles where lawful."}
+{"controlId":"A.6.3","expectedVerdict":"Met","note":"Induction + annual awareness + secure-coding training + quarterly phishing, all tracked and reported."}
+{"controlId":"A.6.4","expectedVerdict":"Partial","note":"Disciplinary action referenced in the ISP, but HR policy explicitly says there is no written disciplinary process for security violations."}
+{"controlId":"A.7.6","expectedVerdict":"Not Applicable","note":"No designated secure areas: production entirely in AWS, workforce remote. Justifiable N/A."}
+{"controlId":"A.7.10","expectedVerdict":"Partial","note":"FDE + USB blocking in place, but no documented media handling/transport/disposal lifecycle."}
+{"controlId":"A.7.12","expectedVerdict":"Not Applicable","note":"No on-premises infrastructure cabling in scope."}
+{"controlId":"A.8.2","expectedVerdict":"Met","note":"JIT, time-bound (8h), session-recorded privileged access via PAM, monthly review."}
+{"controlId":"A.8.5","expectedVerdict":"Met","note":"SSO with enforced MFA for all users; FIDO2 hardware keys for production."}
+{"controlId":"A.8.8","expectedVerdict":"Met","note":"Dependabot + Semgrep + secret scanning + annual pen-test tracker. Overdue pen test lowers confidence but the control is operating -> still Met."}
+{"controlId":"A.8.11","expectedVerdict":"Gap","note":"No masking/pseudonymisation described anywhere data is displayed or exported."}
+{"controlId":"A.8.13","expectedVerdict":"Partial","note":"Backups configured (PITR + cross-region) but restoration never tested end-to-end; only backup success is monitored."}
+{"controlId":"A.8.15","expectedVerdict":"Partial","note":"CloudTrail + app logs retained 400 days, but no documented log-review procedure."}
+{"controlId":"A.8.17","expectedVerdict":"Gap","note":"Clock synchronisation not documented for any in-scope system."}
+{"controlId":"A.8.24","expectedVerdict":"Met","note":"TLS 1.2+/mTLS in transit, AES-256 with KMS CMKs at rest, annual key rotation, logged key-policy changes."}
+{"controlId":"A.8.27","expectedVerdict":"Gap","note":"Secure Development Policy explicitly states secure architecture principles are not written down."}
+{"controlId":"A.8.29","expectedVerdict":"Partial","note":"SAST + weekly DAST in pipeline, but the annual pen test is 10 months old and unscheduled."}
+{"controlId":"A.8.30","expectedVerdict":"Not Applicable","note":"All development in-house; no outsourced development described."}
