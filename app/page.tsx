@@ -17,7 +17,7 @@ export default function Home() {
           Make ISO 27001 gap analysis a first pass, not a blank page.
         </h1>
         <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-[var(--ink-2)]">
-          {siteConfig.intro}
+          {siteConfig.background.cta}
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
           <Link href="/tool" className="btn btn-primary">
@@ -29,13 +29,44 @@ export default function Home() {
         </div>
         <div className="mt-10 flex flex-wrap items-center gap-2">
           <span className="text-xs uppercase tracking-wide text-[var(--ink-2)]/70">
-            Frameworks I work with
+            Where I work
           </span>
-          {siteConfig.credentials.map((c) => (
+          {siteConfig.background.expertise.map((c) => (
             <span key={c} className="chip">
               {c}
             </span>
           ))}
+        </div>
+      </section>
+
+      {/* ── about ─────────────────────────────────────────────────────────── */}
+      <section className="container-x pb-4">
+        <div className="card grid gap-6 p-6 sm:grid-cols-[1fr_1.4fr] sm:p-8">
+          <div>
+            <div className="text-lg font-[660]">{siteConfig.author.name}</div>
+            <div className="mt-0.5 text-sm text-[var(--ink-2)]">
+              {siteConfig.author.title} · {siteConfig.author.location}
+            </div>
+            <div className="mt-4 flex flex-wrap gap-3 text-sm">
+              <a href={siteConfig.links.linkedin} className="font-medium text-[var(--brand)]">
+                LinkedIn
+              </a>
+              <a href={siteConfig.links.github} className="font-medium text-[var(--brand)]">
+                GitHub
+              </a>
+              <a
+                href={`mailto:${siteConfig.author.email}`}
+                className="font-medium text-[var(--brand)]"
+              >
+                Email
+              </a>
+            </div>
+          </div>
+          <div className="space-y-3 text-sm leading-relaxed text-[var(--ink-2)]">
+            <p>{siteConfig.background.intro}</p>
+            <p>{siteConfig.background.mission}</p>
+            <p>{siteConfig.background.approach}</p>
+          </div>
         </div>
       </section>
 
