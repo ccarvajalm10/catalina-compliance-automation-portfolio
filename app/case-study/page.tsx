@@ -19,7 +19,8 @@ export default function CaseStudyIndex() {
         Each one takes a document-heavy legal-compliance task, puts an AI workflow through
         the first pass with the controls kept inside the flow, and shows the time it takes
         before and after. One has a live tool behind it; the other two are worked examples
-        with a sample you can run.
+        with a sample you can run. Together they are the applied side of my Master&rsquo;s
+        thesis, <em>From Regulation to Workflow</em>.
       </p>
 
       <div className="mt-10 grid gap-5">

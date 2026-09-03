@@ -1,8 +1,17 @@
-# ISO 27001 Gap & Evidence Analyzer (portfolio project)
+# From Regulation to Workflow — portfolio
 
-A working demonstration that AI can compress the slowest part of an ISO/IEC 27001
-programme, the first Annex A gap analysis, from roughly four analyst-days to about one,
-without giving up traceability or handing judgement to a model.
+The applied companion to the MSc thesis *From Regulation to Workflow: A Framework for
+Responsible AI Implementation in Legal Operations and Compliance Functions*
+(MSc in Law, Data and AI, EMILDAI). The thesis argues that responsible AI in
+legal-compliance work comes from building governance into the workflow itself, not from
+adding features after deployment. This site puts that framework into practice on three
+processes: an ISO/IEC 27001 gap analysis, a GDPR Data Processing Agreement review, and an
+EU AI Act readiness assessment. Each is an illustrative implementation, assessed against
+the external legal requirements it targets.
+
+The ISO 27001 case has a working tool behind it: a demonstration that AI can compress the
+first Annex A gap analysis from roughly four analyst-days to about one, without giving up
+traceability or handing judgement to a model.
 
 It is one deployable [Next.js](https://nextjs.org) app with three things in it:
 

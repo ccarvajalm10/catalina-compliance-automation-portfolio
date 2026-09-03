@@ -116,13 +116,24 @@ export default function Home() {
         <div className="container-x py-16 sm:py-20">
           <p className="kicker">Provenance</p>
           <h2 className="display mt-3 max-w-[24ch] text-[clamp(1.8rem,3.4vw,2.6rem)]">
-            How these case studies were built
+            The applied side of a Master&rsquo;s thesis
           </h2>
+          <div className="mt-6 max-w-[720px] rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-6">
+            <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[var(--ink-3)]">
+              {siteConfig.thesis.degree}
+            </div>
+            <p className="mt-2 font-serif text-[19px] leading-snug text-[var(--ink)]">
+              {siteConfig.thesis.title}
+            </p>
+            <p className="mt-3 text-[14px] leading-relaxed text-[var(--ink-2)]">
+              {siteConfig.thesis.argument} {siteConfig.thesis.note}
+            </p>
+          </div>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {[
               {
-                t: "From the Master's",
-                d: "MSc in Law, Data and AI (EMILDAI), with a Cybersecurity specialisation at Universidad de León and AI Ethics at Università di Pisa. The frameworks used here — ISO/IEC 27001, the GDPR accountability regime, the EU AI Act — are the ones I study and apply.",
+                t: "From the thesis",
+                d: "The framework these workflows implement, from my thesis From Regulation to Workflow: turning a regulatory instrument into an operational process with governance built into each step.",
               },
               {
                 t: "From practice",

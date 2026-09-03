@@ -14,8 +14,8 @@ export const siteConfig = {
   /** The portfolio as a whole. Shown in the hero and metadata. */
   portfolio: {
     kicker: "Portfolio",
-    tagline: "AI that makes governance, privacy and risk work faster, without giving up the audit trail.",
-    lede: "I am a legal and compliance specialist working across governance, risk and control, data protection, and AI governance. This site holds three worked examples where I take a slow, document-heavy legal-compliance process, rebuild it around an AI workflow with the controls kept inside it, and show the time it takes before and after.",
+    tagline: "From regulation to workflow: AI that makes governance, privacy and risk work faster, without giving up the audit trail.",
+    lede: "I am a legal and compliance specialist working across governance, risk and control, data protection, and AI governance. This site is the applied companion to my Master's thesis: three worked examples that each take a regulation or standard and rebuild the process it governs as a governed AI workflow, with the controls kept inside the flow and the time measured before and after.",
     // The three practice areas the portfolio covers.
     areas: [
       "Governance, Risk & Control",
@@ -24,11 +24,22 @@ export const siteConfig = {
     ],
   },
 
+  /** The thesis this portfolio operationalises. */
+  thesis: {
+    title:
+      "From Regulation to Workflow: A Framework for Responsible AI Implementation in Legal Operations and Compliance Functions",
+    degree: "MSc in Law, Data and AI (EMILDAI)",
+    argument:
+      "Responsible AI in legal and compliance work is achieved not through isolated technical features but by building governance mechanisms into the workflow itself: retrieval grounding, an encoded playbook, an evaluator loop, a human approval gate, and an audit trail.",
+    note:
+      "Each case study here is an illustrative implementation of that framework, assessed against the external legal requirements it targets rather than against internally defined success criteria.",
+  },
+
   /** Shown in the About section. */
   about: {
     bio: "Legal and compliance specialist focused on AI governance, data protection and information-security control frameworks. Completing an MSc in Law, Data and AI (EMILDAI) with a specialisation in Cybersecurity at Universidad de León and AI Ethics at Università di Pisa. CIPM and CIPP/E certified.",
     background:
-      "My background is multidisciplinary across technology, data and law. Before moving into Law, Data and AI, I worked in a compliance team at a law firm in Colombia, where much of the work was manual review of organisations and contracts against control frameworks and statutory requirements. This portfolio is where I show how that work changes when a governed AI workflow does the first pass.",
+      "My background is multidisciplinary across technology, data and law. Before moving into Law, Data and AI, I worked in a compliance team at a law firm in Colombia, where much of the work was manual review of organisations and contracts against control frameworks and statutory requirements. This portfolio grew out of my Master's thesis, From Regulation to Workflow, and puts its framework into practice on three real processes.",
     expertise: [
       "ISO/IEC 27001 and 27002",
       "GDPR, DPAs and DPIAs",
