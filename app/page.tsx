@@ -43,6 +43,16 @@ export default function Home() {
       <section className="container-x pb-4">
         <div className="card grid gap-6 p-6 sm:grid-cols-[1fr_1.4fr] sm:p-8">
           <div>
+            {siteConfig.author.photo && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={siteConfig.author.photo}
+                alt={siteConfig.author.name}
+                width={132}
+                height={132}
+                className="mb-4 h-[132px] w-[132px] rounded-full object-cover ring-1 ring-[var(--line)]"
+              />
+            )}
             <div className="text-lg font-[660]">{siteConfig.author.name}</div>
             <div className="mt-0.5 text-sm text-[var(--ink-2)]">
               {siteConfig.author.title} · {siteConfig.author.location}

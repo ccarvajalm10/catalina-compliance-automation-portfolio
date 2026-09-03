@@ -9,6 +9,8 @@ export const siteConfig = {
     bio: "AI-native tech-focused compliance legal professional. MSc in Law, Data & AI (Cybersecurity) from Universidad de León, AI Ethics from Università di Pisa. CIPM and CIPP/E certified.",
     location: "Dublin, Ireland",
     email: "catalinacarvajalm3@gmail.com",
+    // file lives in /public — set to "" to hide the portrait
+    photo: "/catalina.jpg",
   },
 
   // Professional background (shown on landing page)
@@ -18,7 +20,7 @@ export const siteConfig = {
     expertise: [
       "Risk management and internal controls",
       "ISO 27001",
-      "SOC 2",
+      "GDPR, NIS2, AI Act",
       "Scalable compliance operations",
       "AI and automation for compliance workflows",
     ],
@@ -30,11 +32,10 @@ export const siteConfig = {
       "I'm interested in building tools that make your compliance programs faster. This site is a working demo of one such tool — an ISO/IEC 27001:2022 gap analyser — plus a written case study of the process change around it.",
   },
 
-  // TODO: replace with your real URLs
   links: {
-    linkedin: "https://www.linkedin.com/in/your-handle",
-    github: "https://github.com/your-handle",
-    // the repo this project lives in, once you push it
-    repo: "https://github.com/your-handle/compliance-automation-portfolio",
+    linkedin: "https://www.linkedin.com/in/catalinacarvajalm/",
+    github: "https://github.com/ccarvajalm10",
+    // update once you create + push the repo
+    repo: "https://github.com/ccarvajalm10/compliance-automation-portfolio",
   },
 } as const;
