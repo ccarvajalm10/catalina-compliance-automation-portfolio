@@ -52,8 +52,7 @@ export const siteConfig = {
   links: {
     linkedin: "https://www.linkedin.com/in/catalinacarvajalm/",
     github: "https://github.com/ccarvajalm10",
-    // update once you create and push the repo
-    repo: "https://github.com/ccarvajalm10/compliance-automation-portfolio",
+    repo: "https://github.com/ccarvajalm10/catalina-compliance-automation-portfolio",
   },
 
   /**
