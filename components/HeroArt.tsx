@@ -7,8 +7,8 @@ export function HeroArt({ className = "" }: { className?: string }) {
   // isometric unit vectors
   const ux = [0.866, 0.5]; // +x -> right & down
   const uy = [-0.866, 0.5]; // +y -> left & down
-  const ox = 260;
-  const oy = 150;
+  const ox = 250;
+  const oy = 120;
   const S = 30; // tile size
 
   const p = (gx: number, gy: number, gz = 0): [number, number] => [
@@ -16,12 +16,14 @@ export function HeroArt({ className = "" }: { className?: string }) {
     oy + gx * S * ux[1] + gy * S * uy[1] - gz * S,
   ];
 
-  // 5 columns along the grid diagonal, heights = a rising "coverage" profile
-  const heights = [1.4, 2.3, 1.8, 3.1, 2.6];
+  // 5 columns in a row, heights = a rising "coverage" profile
+  const heights = [1.2, 1.9, 1.5, 2.7, 2.2];
+  const colX = (i: number) => 0.5 + i * 1.05;
+  const COL_Y = 2.2;
 
   function column(i: number, h: number) {
-    const gx = i;
-    const gy = i;
+    const gx = colX(i);
+    const gy = COL_Y;
     const w = 0.8;
     const A = p(gx, gy, h); // top back
     const B = p(gx + w, gy, h); // top right
@@ -52,7 +54,7 @@ export function HeroArt({ className = "" }: { className?: string }) {
   }
 
   // floating trend nodes above the columns
-  const nodes = heights.map((h, i) => p(i + 0.4, i + 0.4, h + 1.1));
+  const nodes = heights.map((h, i) => p(colX(i) + 0.4, COL_Y + 0.4, h + 1.15));
 
   return (
     <svg

@@ -51,9 +51,7 @@ export default function Home() {
               {cases.map((c) => (
                 <div key={c.slug} className="hero-stat">
                   <div className="hs-value">{c.metric.after}</div>
-                  <div className="hs-label">
-                    was {c.metric.before} · {c.area.split(" ")[0]}
-                  </div>
+                  <div className="hs-label">was {c.metric.before}</div>
                 </div>
               ))}
             </div>
