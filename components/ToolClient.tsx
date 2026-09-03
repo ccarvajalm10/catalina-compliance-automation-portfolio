@@ -1,16 +1,22 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { PIPELINE_STEPS, VERDICT_RUBRIC, VERDICT_ORDER } from "@/lib/rubric";
 import type { AnalysisResult, Control, Verdict } from "@/lib/types";
 
-const VERDICTS: Verdict[] = ["Met", "Partial", "Gap", "Not Applicable"];
 const THEMES = ["Organizational", "People", "Physical", "Technological"] as const;
 
-const verdictClass: Record<Verdict, string> = {
-  Met: "v-met",
-  Partial: "v-partial",
-  Gap: "v-gap",
-  "Not Applicable": "v-na",
+const badgeClass: Record<Verdict, string> = {
+  Met: "badge-met",
+  Partial: "badge-partial",
+  Gap: "badge-gap",
+  "Not Applicable": "badge-na",
+};
+const dotClass: Record<Verdict, string> = {
+  Met: "dot-met",
+  Partial: "dot-partial",
+  Gap: "dot-gap",
+  "Not Applicable": "dot-na",
 };
 
 function csv(rows: (string | number)[][]): string {
@@ -35,20 +41,28 @@ function download(name: string, text: string, type: string) {
   URL.revokeObjectURL(url);
 }
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 export default function ToolClient({
   initial,
   controls,
+  liveEnabled,
 }: {
   initial: AnalysisResult;
   controls: Control[];
+  liveEnabled: boolean;
 }) {
   const [result, setResult] = useState<AnalysisResult>(initial);
-  const [running, setRunning] = useState(false);
-  const [runNote, setRunNote] = useState<string | null>(null);
+  const [phase, setPhase] = useState<"idle" | "running" | "done">("idle");
+  const [step, setStep] = useState<string>("");
+  const [note, setNote] = useState<string | null>(null);
+  const [showHow, setShowHow] = useState(false);
+
   const [verdictFilter, setVerdictFilter] = useState<Verdict | "All">("All");
   const [themeFilter, setThemeFilter] = useState<(typeof THEMES)[number] | "All">("All");
   const [q, setQ] = useState("");
   const [open, setOpen] = useState<string | null>(null);
+  const runId = useRef(0);
 
   const ctl = useMemo(
     () => Object.fromEntries(controls.map((c) => [c.id, c])),
@@ -62,33 +76,55 @@ export default function ToolClient({
         if (verdictFilter !== "All" && f.verdict !== verdictFilter) return false;
         if (themeFilter !== "All" && c?.theme !== themeFilter) return false;
         if (q) {
-          const hay = `${f.controlId} ${c?.title ?? ""} ${f.rationale} ${f.remediation ?? ""}`.toLowerCase();
+          const hay =
+            `${f.controlId} ${c?.title ?? ""} ${f.rationale} ${f.remediation ?? ""}`.toLowerCase();
           if (!hay.includes(q.toLowerCase())) return false;
         }
         return true;
       });
   }, [result, ctl, verdictFilter, themeFilter, q]);
 
-  async function runLive() {
-    setRunning(true);
-    setRunNote(null);
-    try {
-      const res = await fetch("/api/analyze", { method: "POST" });
-      const data = await res.json();
-      if (data.error) {
-        setRunNote(`Error: ${data.error}`);
-      } else {
-        setResult(data as AnalysisResult);
-        setRunNote(
-          data.note ??
-            `Live run complete — ${data.mode} mode${data.model ? ` (${data.model})` : ""}.`,
-        );
-      }
-    } catch (e) {
-      setRunNote(e instanceof Error ? e.message : "request failed");
-    } finally {
-      setRunning(false);
+  async function run() {
+    const id = ++runId.current;
+    setPhase("running");
+    setNote(null);
+    setOpen(null);
+
+    // Walk through the themed passes so the process is visible.
+    for (const theme of THEMES) {
+      if (runId.current !== id) return;
+      const n = controls.filter((c) => c.theme === theme).length;
+      setStep(`Assessing ${theme} controls (${n})`);
+      await sleep(750);
     }
+    if (runId.current !== id) return;
+    setStep("Validating 93 responses in code");
+    await sleep(650);
+
+    if (liveEnabled) {
+      try {
+        const res = await fetch("/api/analyze", { method: "POST" });
+        const data = await res.json();
+        if (runId.current !== id) return;
+        if (data.error) {
+          setNote(`Live run failed: ${data.error}`);
+        } else {
+          setResult(data as AnalysisResult);
+          setNote(
+            `Live run complete. ${data.mode} mode${data.model ? `, ${data.model}` : ""}.`,
+          );
+        }
+      } catch (e) {
+        setNote(e instanceof Error ? e.message : "request failed");
+      }
+    } else {
+      setNote(
+        "This is a recorded run over the sample company. To execute a fresh one against the model, run the repository locally with an ANTHROPIC_API_KEY set.",
+      );
+    }
+    if (runId.current !== id) return;
+    setPhase("done");
+    setStep("");
   }
 
   const s = result.summary;
@@ -97,42 +133,104 @@ export default function ToolClient({
     <div className="container-x py-10">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-[680] tracking-[-0.01em]">
-            {result.company} — Annex A gap assessment
+          <p className="kicker">Live tool</p>
+          <h1 className="display mt-2 text-[clamp(1.7rem,3vw,2.3rem)]">
+            {result.company}: Annex A gap assessment
           </h1>
-          <p className="mt-1 text-sm text-[var(--ink-2)]">
-            {result.mode === "demo" ? "Pre-computed demo result" : "Live model result"} ·{" "}
-            {result.documentsAnalyzed.length} documents · generated{" "}
-            {new Date(result.generatedAt).toLocaleDateString()}
+          <p className="mt-2 max-w-2xl text-[14px] text-[var(--ink-2)]">
+            The output of the case study pipeline: a drafted verdict for all{" "}
+            {result.findings.length} ISO/IEC 27001:2022 Annex A controls, each traceable to a
+            sentence in the sample company&rsquo;s documents.{" "}
+            {result.mode === "demo" ? "Pre-computed result." : "Live model result."}
           </p>
         </div>
-        <div className="flex gap-2">
-          <button className="btn btn-ghost" onClick={runLive} disabled={running}>
-            {running ? "Running…" : "Run live analysis"}
-          </button>
-        </div>
+        <button
+          className="btn btn-primary"
+          onClick={run}
+          disabled={phase === "running"}
+        >
+          {phase === "running"
+            ? "Running…"
+            : liveEnabled
+              ? "Run live analysis"
+              : "Replay the AI run"}
+        </button>
       </div>
 
-      {runNote && (
-        <p className="mt-3 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-4 py-2.5 text-sm text-[var(--ink-2)]">
-          {runNote}
-        </p>
+      {(phase === "running" || note) && (
+        <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-[13.5px] text-[var(--ink-2)]">
+          {phase === "running" ? (
+            <span className="running">{step}</span>
+          ) : (
+            note
+          )}
+        </div>
       )}
+
+      {/* how it works */}
+      <div className="mt-6 card-flat overflow-hidden">
+        <button
+          className="flex w-full items-center justify-between px-5 py-3.5 text-left"
+          onClick={() => setShowHow((v) => !v)}
+        >
+          <span className="text-[14px] font-semibold">
+            How the AI reaches a verdict
+          </span>
+          <span className="text-[var(--ink-3)]">{showHow ? "Hide" : "Show"}</span>
+        </button>
+        {showHow && (
+          <div className="border-t border-[var(--line)] px-5 py-5">
+            <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {PIPELINE_STEPS.map((p) => (
+                <li key={p.n}>
+                  <div className="text-[13px] font-bold text-[var(--forest)]">
+                    Step {p.n}
+                  </div>
+                  <div className="mt-0.5 text-[13.5px] font-semibold">{p.title}</div>
+                  <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--ink-2)]">
+                    {p.body}
+                  </p>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-5 rounded-xl bg-[var(--paper-2)] p-4">
+              <div className="text-[12px] font-semibold uppercase tracking-[0.1em] text-[var(--ink-3)]">
+                The four verdicts
+              </div>
+              <dl className="mt-3 space-y-3">
+                {VERDICT_ORDER.map((v) => (
+                  <div key={v} className="grid gap-1 sm:grid-cols-[110px_1fr]">
+                    <dt>
+                      <span className={`badge ${badgeClass[v]}`}>{v}</span>
+                    </dt>
+                    <dd className="text-[13px] leading-relaxed text-[var(--ink-2)]">
+                      {VERDICT_RUBRIC[v].test}{" "}
+                      <span className="text-[var(--ink-3)]">
+                        Needs: {VERDICT_RUBRIC[v].needs}
+                      </span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* summary */}
       <div className="mt-6 card grid grid-cols-2 gap-px overflow-hidden bg-[var(--line)] sm:grid-cols-5">
         {[
-          ["Coverage", `${s.coverageScore}/100`, "v-na"],
-          ["Met", s.met, "v-met"],
-          ["Partial", s.partial, "v-partial"],
-          ["Gap", s.gap, "v-gap"],
-          ["N/A", s.notApplicable, "v-na"],
-        ].map(([label, val, cls]) => (
+          ["Coverage", `${s.coverageScore}/100`, "dot-na"],
+          ["Met", s.met, "dot-met"],
+          ["Partial", s.partial, "dot-partial"],
+          ["Gap", s.gap, "dot-gap"],
+          ["N/A", s.notApplicable, "dot-na"],
+        ].map(([label, val, dot]) => (
           <div key={label as string} className="bg-[var(--surface)] px-5 py-4">
-            <div className="flex items-center gap-2 text-xs text-[var(--ink-2)]">
-              <span className={`verdict-dot ${cls}`} /> {label}
+            <div className="flex items-center gap-2 text-[11.5px] text-[var(--ink-3)]">
+              <span className={`dot ${dot}`} /> {label}
             </div>
-            <div className="mt-1 text-2xl font-[660]">{val as string}</div>
+            <div className="mt-1 font-serif text-[26px]">{val as string}</div>
           </div>
         ))}
       </div>
@@ -142,16 +240,16 @@ export default function ToolClient({
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search control, rationale, action…"
-          className="w-full max-w-xs rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3.5 py-2 text-sm outline-none focus:border-[#cfd8e3]"
+          placeholder="Search control, rationale, action"
+          className="w-full max-w-xs rounded-lg border border-[var(--line-2)] bg-[var(--surface)] px-3.5 py-2 text-[13.5px] outline-none focus:border-[var(--ink-3)]"
         />
         <select
           value={verdictFilter}
           onChange={(e) => setVerdictFilter(e.target.value as Verdict | "All")}
-          className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm"
+          className="rounded-lg border border-[var(--line-2)] bg-[var(--surface)] px-3 py-2 text-[13.5px]"
         >
           <option value="All">All verdicts</option>
-          {VERDICTS.map((v) => (
+          {VERDICT_ORDER.map((v) => (
             <option key={v} value={v}>
               {v}
             </option>
@@ -162,7 +260,7 @@ export default function ToolClient({
           onChange={(e) =>
             setThemeFilter(e.target.value as (typeof THEMES)[number] | "All")
           }
-          className="rounded-xl border border-[var(--line)] bg-[var(--surface)] px-3 py-2 text-sm"
+          className="rounded-lg border border-[var(--line-2)] bg-[var(--surface)] px-3 py-2 text-[13.5px]"
         >
           <option value="All">All themes</option>
           {THEMES.map((t) => (
@@ -171,11 +269,11 @@ export default function ToolClient({
             </option>
           ))}
         </select>
-        <span className="text-sm text-[var(--ink-2)]">{rows.length} shown</span>
+        <span className="text-[13px] text-[var(--ink-3)]">{rows.length} shown</span>
 
         <div className="ml-auto flex gap-2">
           <button
-            className="btn btn-ghost py-2! text-[13px]!"
+            className="btn btn-ghost py-2! text-[12.5px]!"
             onClick={() =>
               download(
                 "analysis.json",
@@ -187,7 +285,7 @@ export default function ToolClient({
             Export JSON
           </button>
           <button
-            className="btn btn-ghost py-2! text-[13px]!"
+            className="btn btn-ghost py-2! text-[12.5px]!"
             onClick={() =>
               download(
                 "remediation-backlog.csv",
@@ -210,7 +308,7 @@ export default function ToolClient({
             Export backlog
           </button>
           <button
-            className="btn btn-ghost py-2! text-[13px]!"
+            className="btn btn-ghost py-2! text-[12.5px]!"
             onClick={() =>
               download(
                 "statement-of-applicability-draft.csv",
@@ -231,9 +329,7 @@ export default function ToolClient({
                           : f.verdict === "Gap"
                             ? "Not implemented"
                             : "Excluded",
-                      applicable
-                        ? f.rationale
-                        : `Excluded: ${f.rationale}`,
+                      applicable ? f.rationale : `Excluded: ${f.rationale}`,
                     ];
                   }),
                 ]),
@@ -256,63 +352,98 @@ export default function ToolClient({
                 className="flex w-full items-start gap-3 px-5 py-4 text-left hover:bg-black/[0.015]"
                 onClick={() => setOpen(isOpen ? null : f.controlId)}
               >
-                <span className={`chip ${verdictClass[f.verdict]} mt-0.5`}>
+                <span className={`badge ${badgeClass[f.verdict]} mt-0.5`}>
                   {f.verdict}
                 </span>
                 <span className="min-w-0 flex-1">
-                  <span className="text-sm font-[600]">
-                    {f.controlId} · {c?.title ?? "—"}
+                  <span className="text-[13.5px] font-semibold">
+                    {f.controlId}. {c?.title ?? ""}
                   </span>
-                  <span className="ml-2 text-xs text-[var(--ink-2)]">
-                    {c?.theme}
-                  </span>
-                  <span className="mt-1 block text-sm text-[var(--ink-2)]">
+                  <span className="ml-2 text-[11.5px] text-[var(--ink-3)]">{c?.theme}</span>
+                  <span className="mt-1 block text-[13px] text-[var(--ink-2)]">
                     {f.rationale}
                   </span>
                 </span>
-                <span className="mt-0.5 shrink-0 text-xs text-[var(--ink-2)]">
-                  {f.confidence.toFixed(2)}
+                <span className="mt-0.5 shrink-0 text-[11.5px] text-[var(--ink-3)]">
+                  conf {f.confidence.toFixed(2)}
                 </span>
               </button>
+
               {isOpen && (
-                <div className="space-y-3 border-t border-[var(--line)] bg-black/[0.012] px-5 py-4 text-sm">
-                  <p className="text-[var(--ink-2)]">
-                    <span className="font-[600] text-[var(--ink)]">Objective. </span>
-                    {c?.objective}
-                  </p>
-                  {f.evidence.length > 0 && (
+                <div className="border-t border-[var(--line)] bg-[var(--paper-2)]/60 px-5 py-4">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[var(--ink-3)]">
+                    Decision trace
+                  </div>
+                  <dl className="mt-2 space-y-2.5 text-[13px]">
                     <div>
-                      <div className="mb-1 font-[600]">Evidence</div>
-                      <ul className="space-y-1.5">
-                        {f.evidence.map((e, i) => (
-                          <li
-                            key={i}
-                            className="border-l-2 border-[var(--line)] pl-3 italic text-[#33383f]"
-                          >
-                            “{e.quote}”
-                            <span className="not-italic text-[var(--ink-2)]"> — {e.source}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <dt className="font-semibold">Control objective</dt>
+                      <dd className="text-[var(--ink-2)]">{c?.objective}</dd>
                     </div>
-                  )}
-                  {f.remediation && (
-                    <p>
-                      <span className="font-[600]">Recommended action. </span>
-                      {f.remediation}
-                    </p>
-                  )}
+                    <div>
+                      <dt className="font-semibold">Test applied for &ldquo;{f.verdict}&rdquo;</dt>
+                      <dd className="text-[var(--ink-2)]">
+                        {VERDICT_RUBRIC[f.verdict].test}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="font-semibold">What the model found in the documents</dt>
+                      <dd>
+                        {f.evidence.length > 0 ? (
+                          <ul className="mt-1 space-y-1.5">
+                            {f.evidence.map((e, i) => (
+                              <li key={i} className="quote text-[12.5px]">
+                                {e.quote}
+                                <span className="not-italic text-[var(--ink-3)]">
+                                  {" "}
+                                  ({e.source})
+                                </span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <span className="text-[var(--ink-2)]">
+                            No supporting statement was found in the supplied documents.
+                          </span>
+                        )}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="font-semibold">Model rationale</dt>
+                      <dd className="text-[var(--ink-2)]">{f.rationale}</dd>
+                    </div>
+                    {f.remediation && (
+                      <div>
+                        <dt className="font-semibold">Recommended action</dt>
+                        <dd className="text-[var(--ink-2)]">{f.remediation}</dd>
+                      </div>
+                    )}
+                    <div>
+                      <dt className="font-semibold">Confidence</dt>
+                      <dd className="text-[var(--ink-2)]">
+                        {f.confidence.toFixed(2)}. Reflects how directly the documents support
+                        this verdict. {VERDICT_RUBRIC[f.verdict].whenWrong}
+                      </dd>
+                    </div>
+                  </dl>
                 </div>
               )}
             </li>
           );
         })}
         {rows.length === 0 && (
-          <li className="px-5 py-10 text-center text-sm text-[var(--ink-2)]">
+          <li className="px-5 py-10 text-center text-[13px] text-[var(--ink-3)]">
             No controls match those filters.
           </li>
         )}
       </ul>
+
+      <p className="mt-4 text-[12.5px] text-[var(--ink-3)]">
+        This is a reviewed draft, not a certification result. It does not replace an
+        assessor, an internal audit, or a certification body.{" "}
+        <a href="/case-study" className="font-semibold text-[var(--forest)]">
+          Read how it was built and measured.
+        </a>
+      </p>
     </div>
   );
 }

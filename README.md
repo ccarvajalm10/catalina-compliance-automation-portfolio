@@ -1,14 +1,14 @@
-# ISO 27001 Gap & Evidence Analyzer — portfolio project
+# ISO 27001 Gap & Evidence Analyzer (portfolio project)
 
 A working demonstration that AI can compress the slowest part of an ISO/IEC 27001
-programme — the first Annex A gap analysis — from roughly four analyst-days to about one,
+programme, the first Annex A gap analysis, from roughly four analyst-days to about one,
 without giving up traceability or handing judgement to a model.
 
 It is one deployable [Next.js](https://nextjs.org) app with three things in it:
 
 | Route | What it is |
 |---|---|
-| `/` | Portfolio landing page — the pitch, the numbers, how it works |
+| `/` | Portfolio landing page: the pitch, the numbers, how it works |
 | `/tool` | **The live tool.** The full 93-control assessment of a sample company, filterable by verdict and theme, with JSON / remediation-backlog / draft-SoA exports and a "run live" button |
 | `/case-study` | A written before/after of the process change, including how the time figures are derived and where the tool is weak |
 
@@ -20,14 +20,14 @@ gold set on every change.
 ## Why this exists
 
 A first ISO 27001 readiness assessment means reading a dozen policies and an evidence
-register, then forming a defensible verdict on all 93 Annex A:2022 controls —
-implemented / partial / not implemented / out of scope — with the evidence for each.
-From scratch that is ~4 analyst-days, the Met/Partial line drifts with fatigue, and the
-output rarely cites the sentence that justified each verdict.
+register, then forming a defensible verdict on all 93 Annex A:2022 controls
+(implemented, partial, not implemented, or out of scope) with the evidence for each.
+From scratch that is about four analyst-days, the Met/Partial line drifts with fatigue,
+and the output rarely cites the sentence that justified each verdict.
 
 This tool does the **first pass**: it drafts a cited verdict for every control so a human
 *reviews* 93 pre-argued findings instead of authoring them. The [case study](./app/case-study)
-is explicit that the saving is in authoring, not judgement — the reviewer still makes every
+is explicit that the saving is in authoring, not judgement. The reviewer still makes every
 final call.
 
 ---
@@ -58,14 +58,14 @@ evals/score.mjs  ──►  precision / recall / F1 per verdict, confusion matri
 
 Key files:
 
-- [`lib/controls.ts`](./lib/controls.ts) — the 93-control catalogue. **Original paraphrased
+- [`lib/controls.ts`](./lib/controls.ts): the 93-control catalogue. **Original paraphrased
   objectives only**; the copyrighted ISO/IEC 27001 / 27002 text is never stored or reproduced.
-- [`lib/analyzer.ts`](./lib/analyzer.ts) — prompt construction, batching, and the defensive parser.
-- [`lib/types.ts`](./lib/types.ts) — the shared result shape.
-- [`data/company/northwind/`](./data/company/northwind) — the fictional sample company's
+- [`lib/analyzer.ts`](./lib/analyzer.ts): prompt construction, batching, and the defensive parser.
+- [`lib/types.ts`](./lib/types.ts): the shared result shape.
+- [`data/company/northwind/`](./data/company/northwind): the fictional sample company's
   ISMS documents, written for this project with realistic gaps built in.
-- [`data/fixtures/analysis.json`](./data/fixtures) — the pre-computed result used in demo mode.
-- [`evals/gold.jsonl`](./evals/gold.jsonl) — 30 hand-labelled controls with justifications.
+- [`data/fixtures/analysis.json`](./data/fixtures): the pre-computed result used in demo mode.
+- [`evals/gold.jsonl`](./evals/gold.jsonl): 30 hand-labelled controls with justifications.
 
 ---
 
@@ -75,15 +75,15 @@ Requires Node 20+.
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000  — works with no API key (demo mode)
+npm run dev          # http://localhost:3000  (works with no API key, demo mode)
 ```
 
 ### Demo mode vs live mode
 
-- **No `ANTHROPIC_API_KEY`** → the app serves the committed assessment in
+- **No `ANTHROPIC_API_KEY`:** the app serves the committed assessment in
   `data/fixtures/analysis.json`. Everything renders; "Run live analysis" returns that same
   result with a note.
-- **With a key** (`cp .env.example .env`, add the key) → `/api/analyze` and
+- **With a key** (`cp .env.example .env`, add the key): `/api/analyze` and
   `npm run eval:live` call the model for real. The pipeline uses the model id in
   `ANTHROPIC_MODEL` (default `claude-sonnet-5`).
 
@@ -100,23 +100,23 @@ npm run fixture      # regenerates data/fixtures/analysis.json and verifies ever
 
 ```bash
 npm run eval         # scores the reference fixture against the gold set (consistency
-                     # check — expected ~100%, it shares an author with the gold set)
+                     # check, expected ~100%, it shares an author with the gold set)
 
 npm run eval:live    # runs the real pipeline, then scores THAT against the gold set
-                     # → writes evals/REPORT.md
+                     # (writes evals/REPORT.md)
 ```
 
 The report gives:
 
-- **Exact verdict accuracy** — the strict metric.
-- **Severity-collapsed accuracy** — Met/Partial/Gap as 2/1/0, so a Partial-vs-Met slip is a
+- **Exact verdict accuracy**, the strict metric.
+- **Severity-collapsed accuracy:** Met/Partial/Gap as 2/1/0, so a Partial-vs-Met slip is a
   half-miss and a Met-vs-Gap a full miss (closer to the real reviewing cost).
 - **Per-verdict precision / recall / F1** and a **confusion matrix**.
-- A **miss table** — every disagreement with the gold rationale, so failures are inspected,
+- A **miss table:** every disagreement with the gold rationale, so failures are inspected,
   not averaged away.
 
 The known weak spot is the Partial-vs-Implemented boundary when evidence of *operation*
-(not just *existence*) is thin — which is exactly why the human review step is not optional.
+(not just *existence*) is thin, which is exactly why the human review step is not optional.
 
 ---
 
@@ -131,7 +131,7 @@ analyses; otherwise it stays in demo mode, which is the safe default for a publi
 
 ## Making the portfolio yours
 
-Edit [`lib/site.ts`](./lib/site.ts) — name, role, intro, links, credentials. Nothing else
+Edit [`lib/site.ts`](./lib/site.ts): name, role, intro, links, credentials. Nothing else
 needs to change.
 
 ---
@@ -143,12 +143,12 @@ needs to change.
 - The sample company, its documents, and the assessment are **fictional**.
 - Real ISMS documents are sensitive: live use needs a data-processing agreement with the
   model provider and a decision on what may leave your environment.
-- Time figures: the ~4-day baseline is a standard effort estimate, not a measured control;
-  the ~1-day after figure is model runtime (minutes) plus ~5–6 hours of analyst review. The
-  [case study](./app/case-study) shows the breakdown.
+- Time figures: the four-day baseline is a standard effort estimate, not a measured control;
+  the one-day after figure is model runtime (minutes) plus about 5 to 6 hours of analyst
+  review. The [case study](./app/case-study) shows the breakdown.
 
 ## Licence
 
-MIT — see [LICENSE](./LICENSE). Applies to the code and the original control-objective
+MIT, see [LICENSE](./LICENSE). Applies to the code and the original control-objective
 paraphrases and sample documents in this repo. It does **not** grant any rights in the
 ISO/IEC standards themselves.

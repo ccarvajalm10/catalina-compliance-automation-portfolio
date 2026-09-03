@@ -1,31 +1,48 @@
 import type { Metadata } from "next";
+import { Fraunces, Inter } from "next/font/google";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
 
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fraunces",
+  axes: ["SOFT", "opsz"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
 export const metadata: Metadata = {
-  title: `${siteConfig.author.name} — AI-assisted ISO 27001 compliance`,
+  title: `${siteConfig.author.name}, ${siteConfig.author.title}`,
   description:
-    "Portfolio and working demo: an ISO/IEC 27001:2022 gap & evidence analyser built on Claude, with an evaluation harness and a process case study.",
+    "A portfolio of case studies on using AI to make compliance work faster. First case study: an ISO/IEC 27001:2022 Annex A gap analysis rebuilt as an AI pipeline, with an evaluation harness and downloadable working templates.",
 };
 
 function Nav() {
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_88%,transparent)] backdrop-blur">
-      <div className="container-x flex h-14 items-center justify-between">
-        <Link href="/" className="font-semibold tracking-tight">
+    <header className="sticky top-0 z-40 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--paper)_86%,transparent)] backdrop-blur">
+      <div className="container-x flex h-[60px] items-center justify-between py-3">
+        <Link href="/" className="font-serif text-[19px] font-medium tracking-tight">
           {siteConfig.author.name}
         </Link>
-        <nav className="flex items-center gap-1 text-sm text-[var(--ink-2)]">
-          <Link href="/tool" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
-            Live tool
-          </Link>
+        <nav className="flex items-center gap-1 text-[13.5px] text-[var(--ink-2)]">
           <Link href="/case-study" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
             Case study
           </Link>
+          <Link href="/tool" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
+            Live tool
+          </Link>
+          <Link href="/#templates" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
+            Templates
+          </Link>
           <a
             href={siteConfig.links.repo}
-            className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]"
+            className="ml-1 rounded-lg border border-[var(--line-2)] px-3 py-1.5 hover:border-[var(--ink-3)] hover:text-[var(--ink)]"
           >
             Code
           </a>
@@ -38,9 +55,9 @@ function Nav() {
 function Footer() {
   return (
     <footer className="mt-24 border-t border-[var(--line)]">
-      <div className="container-x flex flex-col gap-2 py-10 text-sm text-[var(--ink-2)] sm:flex-row sm:items-center sm:justify-between">
+      <div className="container-x flex flex-col gap-3 py-10 text-[13.5px] text-[var(--ink-2)] sm:flex-row sm:items-center sm:justify-between">
         <p>
-          {siteConfig.author.name} · {siteConfig.author.location}
+          {siteConfig.author.name}, {siteConfig.author.title}. {siteConfig.author.location}.
         </p>
         <div className="flex gap-4">
           <a href={`mailto:${siteConfig.author.email}`} className="hover:text-[var(--ink)]">
@@ -54,9 +71,10 @@ function Footer() {
           </a>
         </div>
       </div>
-      <div className="container-x pb-10 text-xs text-[var(--ink-2)]/70">
-        Sample company, its documents, and the assessment shown here are fictional and were
-        written for this demo. ISO/IEC 27001 and 27002 text is not reproduced.
+      <div className="container-x pb-10 text-[11.5px] leading-relaxed text-[var(--ink-3)]">
+        The sample company, its documents and the assessment shown in the live tool are
+        fictional and were written for this demonstration. ISO/IEC 27001 and 27002 are
+        copyright works of ISO/IEC and their text is not reproduced here.
       </div>
     </footer>
   );
@@ -66,7 +84,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
         <Nav />
         <main>{children}</main>

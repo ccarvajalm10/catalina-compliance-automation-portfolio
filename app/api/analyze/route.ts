@@ -15,7 +15,7 @@ export async function POST() {
   if (!hasApiKey()) {
     return NextResponse.json({
       ...getDemoAnalysis(),
-      note: "No ANTHROPIC_API_KEY configured on the server — returned the pre-computed demo result. Run locally with a key for a live analysis.",
+      note: "No ANTHROPIC_API_KEY configured on the server, so this returned the pre-computed demo result. Run the repository locally with a key for a live analysis.",
     });
   }
   try {

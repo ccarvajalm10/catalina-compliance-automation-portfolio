@@ -5,7 +5,7 @@ import { getDemoAnalysis, hasApiKey } from "@/lib/loadAnalysis";
 import { COMPANY_PROFILE } from "@/lib/company";
 
 export const metadata: Metadata = {
-  title: "Live tool — ISO 27001 Gap & Evidence Analyzer",
+  title: "Live tool: ISO 27001 Gap & Evidence Analyzer",
 };
 
 export default function ToolPage() {
@@ -15,15 +15,15 @@ export default function ToolPage() {
   return (
     <>
       <div className="border-b border-[var(--line)] bg-[var(--surface)]">
-        <div className="container-x py-4 text-sm text-[var(--ink-2)]">
-          <span className="font-[600] text-[var(--ink)]">About this data. </span>
+        <div className="container-x py-4 text-[13px] leading-relaxed text-[var(--ink-2)]">
+          <span className="font-semibold text-[var(--ink)]">About this data. </span>
           {COMPANY_PROFILE.replace(/\s+/g, " ")}{" "}
           {live
-            ? "This server has an API key configured — “Run live analysis” calls the model."
-            : "No API key is configured here, so “Run live analysis” returns the same pre-computed result. Run the repo locally with a key for a live pass."}
+            ? "This server has an API key configured, so the run button calls the model."
+            : "No API key is configured here, so the run button replays the recorded assessment. Run the repository locally with a key to execute a fresh pass."}
         </div>
       </div>
-      <ToolClient initial={initial} controls={[...CONTROLS]} />
+      <ToolClient initial={initial} controls={[...CONTROLS]} liveEnabled={live} />
     </>
   );
 }
