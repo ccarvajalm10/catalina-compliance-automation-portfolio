@@ -40,8 +40,8 @@ function Nav() {
           <Link href="/resources" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
             Resources
           </Link>
-          <Link href="/#consult" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
-            Consult
+          <Link href="/#contact" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
+            Contact
           </Link>
           <a
             href={siteConfig.links.repo}

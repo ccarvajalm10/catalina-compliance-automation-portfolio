@@ -106,8 +106,9 @@ export const siteConfig = {
   /**
    * Consultation space. This is a direct email, not a booking system.
    */
-  consultation: {
+  contact: {
     heading: "Work with me",
+    title: "Email me about any of these three",
     blurb:
       "I help legal and compliance teams stand up governed AI workflows for the processes on this site: ISO/IEC 27001 readiness, GDPR Data Processing Agreement and DPIA review, and EU AI Act classification and obligation mapping.",
     offers: [
@@ -115,7 +116,7 @@ export const siteConfig = {
       "Designing a review workflow with the controls kept inside it (retrieval grounding, encoded playbook, evaluator check, human approval gate)",
       "A second opinion on an AI system's risk classification and obligations",
     ],
-    emailSubject: "Consultation enquiry from the portfolio",
+    emailSubject: "Enquiry from the portfolio",
     note: "Goes straight to my inbox. I usually reply within two working days.",
   },
 

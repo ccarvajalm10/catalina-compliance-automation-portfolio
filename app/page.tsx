@@ -29,6 +29,9 @@ export default function Home() {
               <Link href="/tool" className="btn btn-hero-ghost">
                 Open the live tool
               </Link>
+              <Link href="/#about" className="btn btn-hero-ghost">
+                About me
+              </Link>
             </div>
             <div className="mt-10 flex flex-wrap gap-2">
               {siteConfig.portfolio.areas.map((area) => (
@@ -173,7 +176,7 @@ export default function Home() {
       </section>
 
       {/* ================= about ================= */}
-      <section className="bg-[var(--paper-2)]">
+      <section id="about" className="scroll-mt-20 bg-[var(--paper-2)]">
         <div className="container-x py-16 sm:py-20">
           <div className="grid gap-8 sm:grid-cols-[auto_1fr] sm:gap-10">
             <div className="sm:w-[150px]">

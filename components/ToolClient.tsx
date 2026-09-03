@@ -138,8 +138,8 @@ export default function ToolClient({
             <div className="mt-0.5 text-[12.5px] text-[var(--ink-2)]">
               Four controls (A.5.1, A.6.3, A.7.4, A.8.8), one model call.{" "}
               {liveEnabled
-                ? "This server has a key, so the button calls the model."
-                : "No key on this server yet, so it returns the recorded verdicts for those four."}
+                ? "This build is configured with a key, so the button calls the model now."
+                : "Shows the reference verdicts for those four; a live model call is used when the site is configured with a key."}
             </div>
           </div>
           <button
@@ -158,14 +158,16 @@ export default function ToolClient({
         {sample && samplePhase === "done" && (
           <div className="mt-4">
             <div
-              className={`mb-3 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-[12px] font-semibold ${
+              className={`mb-3 inline-flex flex-wrap items-center gap-2 rounded-lg px-3 py-1.5 text-[12px] font-semibold ${
                 sample.mode === "live"
                   ? "bg-[var(--v-met-bg)] text-[var(--v-met)]"
-                  : "bg-[var(--v-partial-bg)] text-[var(--v-partial)]"
+                  : "bg-[var(--forest-tint)] text-[var(--forest)]"
               }`}
             >
-              {sample.mode === "live" ? "● Live model run" : "● Recorded result"}
-              {sample.note ? <span className="font-normal">{sample.note}</span> : null}
+              {sample.mode === "live" ? "● Live model run" : "● Reference run"}
+              {sample.note ? (
+                <span className="font-normal text-[var(--ink-2)]">{sample.note}</span>
+              ) : null}
             </div>
             <ul className="divide-y divide-[var(--line)] rounded-xl border border-[var(--line)]">
               {sample.findings.map((f) => (

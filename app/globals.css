@@ -14,18 +14,19 @@
   --line: #e4ddcf;
   --line-2: #d6cdb9;
 
-  /* brand */
-  --forest: #1f5f4e;
-  --forest-deep: #163f34;
-  --forest-tint: #1f5f4e14;
+  /* brand — violet, matching the hero gradient.
+     var names kept as --forest* so existing references pick up the new hue. */
+  --forest: #5a3fd0;
+  --forest-deep: #3b2a9c;
+  --forest-tint: #5a3fd014;
   --clay: #b4552d;
   --clay-deep: #7f371a;
   --clay-tint: #b4552d16;
   --gold: #b98a2e;
   --gold-tint: #b98a2e1f;
-  --indigo: #3f4a86;
-  --indigo-deep: #2a3160;
-  --indigo-tint: #3f4a861a;
+  --indigo: #4340a6;
+  --indigo-deep: #2c2a72;
+  --indigo-tint: #4340a61a;
 
   /* practice-area accent, remapped per page via [data-accent] */
   --accent: var(--forest);
@@ -118,14 +119,14 @@ body {
 
 /* dark band used for contrast sections */
 .band-dark {
-  background: var(--forest-deep);
-  color: #eef1ec;
+  background: linear-gradient(150deg, #2a1d6b, #3b2a9c 60%, #4b2f8f);
+  color: #efecfb;
 }
 .band-dark .kicker {
-  color: #e6b980;
+  color: #c6b6ff;
 }
 .band-dark .ink-2 {
-  color: #b9c4bd;
+  color: #c3bce0;
 }
 
 .ink-2 {
@@ -200,8 +201,8 @@ body {
   color: var(--ink);
 }
 .btn-ghost:hover:not(:disabled) { border-color: var(--ink-3); }
-.btn-ondark { background: #f2b877; color: var(--forest-deep); }
-.btn-ondark:hover:not(:disabled) { background: #f6c993; }
+.btn-ondark { background: #efeaff; color: #2c2072; }
+.btn-ondark:hover:not(:disabled) { background: #ffffff; }
 
 /* ---- long-form prose --------------------------------------------------- */
 .prose h2 {

@@ -22,7 +22,7 @@ export async function POST() {
       model: null,
       sampleControlIds: ids,
       findings: demo.findings.filter((f) => ids.includes(f.controlId)),
-      note: "No API key is configured on this server, so these are the recorded verdicts for the sample controls. Add a spending-capped ANTHROPIC_API_KEY to run them live.",
+      note: "Verdicts for the four sample controls, taken from the reference assessment. A live model call returns the same shape of output.",
     });
   }
 
