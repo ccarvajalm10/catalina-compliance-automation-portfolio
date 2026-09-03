@@ -20,7 +20,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: `${siteConfig.author.name}, ${siteConfig.author.title}`,
   description:
-    "A portfolio of case studies on using AI to make compliance work faster. First case study: an ISO/IEC 27001:2022 Annex A gap analysis rebuilt as an AI pipeline, with an evaluation harness and downloadable working templates.",
+    "A portfolio of three worked examples on using governed AI workflows to make governance, privacy and AI-governance work faster: an ISO/IEC 27001 gap analysis (with a live tool), a GDPR Data Processing Agreement review, and EU AI Act readiness.",
 };
 
 function Nav() {
@@ -32,7 +32,7 @@ function Nav() {
         </Link>
         <nav className="flex items-center gap-1 text-[13.5px] text-[var(--ink-2)]">
           <Link href="/case-study" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
-            Case study
+            Case studies
           </Link>
           <Link href="/tool" className="rounded-lg px-3 py-1.5 hover:bg-black/[0.04] hover:text-[var(--ink)]">
             Live tool

@@ -19,9 +19,18 @@
   --forest-deep: #163f34;
   --forest-tint: #1f5f4e14;
   --clay: #b4552d;
+  --clay-deep: #7f371a;
   --clay-tint: #b4552d16;
   --gold: #b98a2e;
   --gold-tint: #b98a2e1f;
+  --indigo: #3f4a86;
+  --indigo-deep: #2a3160;
+  --indigo-tint: #3f4a861a;
+
+  /* practice-area accent, remapped per page via [data-accent] */
+  --accent: var(--forest);
+  --accent-deep: var(--forest-deep);
+  --accent-tint: var(--forest-tint);
 
   /* verdict scale */
   --v-met: #2f7d5b;
@@ -247,3 +256,302 @@ body {
   50% { opacity: 0.45; }
 }
 .running { animation: pulse-soft 1.1s ease-in-out infinite; }
+
+/* ============================================================================
+   Practice-area accents. Set data-accent="clay" | "indigo" on a wrapper.
+   ========================================================================== */
+[data-accent="forest"] {
+  --accent: var(--forest);
+  --accent-deep: var(--forest-deep);
+  --accent-tint: var(--forest-tint);
+}
+[data-accent="clay"] {
+  --accent: var(--clay);
+  --accent-deep: var(--clay-deep);
+  --accent-tint: var(--clay-tint);
+}
+[data-accent="indigo"] {
+  --accent: var(--indigo);
+  --accent-deep: var(--indigo-deep);
+  --accent-tint: var(--indigo-tint);
+}
+.accent { color: var(--accent); }
+.kicker.on-accent { color: var(--accent); }
+.btn-accent { background: var(--accent); color: #fff; }
+.btn-accent:hover:not(:disabled) { background: var(--accent-deep); }
+
+/* area tag pill */
+.area-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: var(--accent-tint);
+  color: var(--accent-deep);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+}
+.area-tag::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+/* ---- big metric / "the number" ------------------------------------------- */
+.metric {
+  display: grid;
+  gap: 2px;
+}
+.metric-value {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 4.5vw, 2.9rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--accent-deep);
+}
+.metric-label {
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+.metric-flow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.metric-flow s {
+  text-decoration-color: var(--v-gap);
+  color: var(--ink-3);
+}
+.metric-flow b {
+  color: var(--accent-deep);
+  font-weight: 650;
+}
+
+/* ---- icon list (replaces plain bullets in feature blocks) --------------- */
+.icon-list {
+  display: grid;
+  gap: 14px;
+}
+.icon-list > li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: start;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.icon-list > li > svg {
+  width: 22px;
+  height: 22px;
+  color: var(--accent);
+  flex: none;
+  margin-top: 1px;
+}
+.icon-list b { color: var(--ink); font-weight: 650; }
+
+/* ---- checklist result rows (worked-example sample output) --------------- */
+.check-row {
+  display: grid;
+  grid-template-columns: 20px 1fr auto;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  font-size: 13.5px;
+}
+.check-row:first-child { border-top: 0; }
+.check-mark { width: 20px; height: 20px; flex: none; margin-top: 1px; }
+.check-pass { color: var(--v-met); }
+.check-flag { color: var(--v-partial); }
+.check-fail { color: var(--v-gap); }
+.check-cite {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.pill {
+  align-self: start;
+  padding: 3px 9px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.pill-pass { color: var(--v-met); background: var(--v-met-bg); }
+.pill-flag { color: var(--v-partial); background: var(--v-partial-bg); }
+.pill-fail { color: var(--v-gap); background: var(--v-gap-bg); }
+
+/* ---- workflow diagram (vertical flow) ---------------------------------- */
+.flow {
+  display: grid;
+  gap: 0;
+  justify-items: center;
+}
+.flow-node {
+  width: 100%;
+  max-width: 340px;
+  border: 1px solid var(--line-2);
+  border-radius: 12px;
+  background: var(--surface);
+  padding: 12px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.flow-node .n-title {
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--ink);
+}
+.flow-node .n-sub {
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+.flow-node.is-accent {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  background: var(--accent-tint);
+}
+.flow-node.is-gate {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.flow-arrow {
+  width: 2px;
+  height: 22px;
+  background: linear-gradient(var(--line-2), var(--accent));
+  position: relative;
+}
+.flow-arrow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--accent);
+}
+.flow-branch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 340px;
+}
+.flow-branch span {
+  font-size: 11.5px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  color: var(--ink-2);
+}
+
+/* ---- section band on a page accent ------------------------------------- */
+.band-accent {
+  background: var(--accent-deep);
+  color: #f3f1ec;
+}
+.band-accent .kicker { color: color-mix(in srgb, var(--accent) 55%, #f3d9c0); }
+
+/* ---- hero art frame -------------------------------------------------- */
+.hero-art {
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(120% 90% at 15% 0%, var(--accent-tint), transparent 60%),
+    linear-gradient(180deg, var(--surface), var(--paper-2));
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* ============================================================================
+   Dark vivid gradient hero band (recreated in CSS, no image assets).
+   ========================================================================== */
+.gradient-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #0a0a1f;
+  color: #f4f2ff;
+}
+/* colour field */
+.gradient-hero::before {
+  content: "";
+  position: absolute;
+  inset: -30% -10% -10% -10%;
+  z-index: -2;
+  background:
+    radial-gradient(38% 55% at 18% 22%, #6d4bff66 0%, transparent 70%),
+    radial-gradient(42% 60% at 82% 18%, #ff5a3c4d 0%, transparent 72%),
+    radial-gradient(50% 70% at 68% 88%, #2a6bff5e 0%, transparent 70%),
+    radial-gradient(45% 65% at 30% 92%, #13b9a355 0%, transparent 72%),
+    conic-gradient(from 210deg at 60% 40%, #171041, #2b1a63, #10113f, #171041);
+  filter: saturate(1.15);
+}
+/* glossy sweep */
+.gradient-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(115deg, transparent 30%, #ffffff14 46%, #ffffff05 52%, transparent 66%),
+    radial-gradient(120% 80% at 50% 0%, #ffffff10, transparent 55%);
+  mix-blend-mode: screen;
+}
+/* subtle grain so the gradient does not band */
+.gradient-grain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+.gradient-hero .kicker { color: #d9c9ff; }
+.gradient-hero .hero-title {
+  font-family: var(--font-serif);
+  font-weight: 460;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  color: #fbfaff;
+  text-wrap: balance;
+}
+.gradient-hero .hero-lede { color: #cfc9ee; }
+.btn-onhero {
+  background: #ffffff;
+  color: #17123a;
+}
+.btn-onhero:hover:not(:disabled) { background: #ece8ff; }
+.btn-hero-ghost {
+  background: #ffffff14;
+  border-color: #ffffff33;
+  color: #fbfaff;
+  backdrop-filter: blur(4px);
+}
+.btn-hero-ghost:hover:not(:disabled) { border-color: #ffffff66; background: #ffffff1f; }
+
+.hero-stat {
+  border: 1px solid #ffffff1f;
+  border-radius: 14px;
+  background: #ffffff0d;
+  backdrop-filter: blur(6px);
+  padding: 14px 16px;
+}
+.hero-stat .hs-value {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  color: #fff;
+  line-height: 1;
+}
+.hero-stat .hs-label { font-size: 12px; color: #c8c1ec; margin-top: 4px; }

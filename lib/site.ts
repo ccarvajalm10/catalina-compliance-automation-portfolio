@@ -4,31 +4,37 @@
 export const siteConfig = {
   author: {
     name: "Catalina Carvajal M.",
-    title: "AI & Compliance Legal Specialist",
+    title: "AI Governance, Privacy & GRC Specialist",
     location: "Dublin, Ireland",
     email: "catalinacarvajalm3@gmail.com",
     // file lives in /public. Set to "" to hide the portrait.
     photo: "/catalina.jpg",
   },
 
-  /** The portfolio as a whole. Shown in the hero. */
+  /** The portfolio as a whole. Shown in the hero and metadata. */
   portfolio: {
     kicker: "Portfolio",
-    tagline: "Using AI to make compliance work faster.",
-    lede: "I am an AI-focused compliance legal specialist. This site collects case studies where I take a slow, document-heavy compliance process, rebuild it with AI, and measure what actually changed. Each case study ships as a tool you can open, not a slide deck.",
+    tagline: "AI that makes governance, privacy and risk work faster, without giving up the audit trail.",
+    lede: "I am a legal and compliance specialist working across governance, risk and control, data protection, and AI governance. This site holds three worked examples where I take a slow, document-heavy legal-compliance process, rebuild it around an AI workflow with the controls kept inside it, and show the time it takes before and after.",
+    // The three practice areas the portfolio covers.
+    areas: [
+      "Governance, Risk & Control",
+      "Privacy & Data Protection",
+      "AI Governance",
+    ],
   },
 
   /** Shown in the About section. */
   about: {
-    bio: "AI-focused compliance legal specialist. Completing an MSc in Law, Data and AI (EMILDAI) with a specialisation in Cybersecurity at Universidad de León and AI Ethics at Università di Pisa. CIPM and CIPP/E certified.",
+    bio: "Legal and compliance specialist focused on AI governance, data protection and information-security control frameworks. Completing an MSc in Law, Data and AI (EMILDAI) with a specialisation in Cybersecurity at Universidad de León and AI Ethics at Università di Pisa. CIPM and CIPP/E certified.",
     background:
-      "My background is multidisciplinary across technology, data and business. Before moving into Law, Data and AI, I worked in a compliance team at a law firm in Colombia, where much of the work was manual assessment of organisations against control frameworks. This portfolio is where I show how that work changes when AI does the first pass.",
+      "My background is multidisciplinary across technology, data and law. Before moving into Law, Data and AI, I worked in a compliance team at a law firm in Colombia, where much of the work was manual review of organisations and contracts against control frameworks and statutory requirements. This portfolio is where I show how that work changes when a governed AI workflow does the first pass.",
     expertise: [
-      "ISO/IEC 27001",
-      "SOC 2",
-      "GDPR, NIS2, AI Act",
+      "ISO/IEC 27001 and 27002",
+      "GDPR, DPAs and DPIAs",
+      "EU AI Act readiness",
       "Risk management and internal controls",
-      "AI and automation for compliance workflows",
+      "AI governance and assurance",
     ],
   },
 
@@ -38,6 +44,64 @@ export const siteConfig = {
     // update once you create and push the repo
     repo: "https://github.com/ccarvajalm10/compliance-automation-portfolio",
   },
+
+  /**
+   * The three case studies. `slug` is the URL under /case-study.
+   * `metric` is the headline "pain the AI solves, with a number".
+   */
+  caseStudies: [
+    {
+      slug: "iso-27001",
+      number: "01",
+      area: "Governance, Risk & Control",
+      accent: "forest",
+      title: "An ISO 27001 gap analysis, rebuilt as an AI pipeline",
+      process:
+        "The first ISO/IEC 27001:2022 readiness gap analysis: a verdict on all 93 Annex A controls with the evidence for each.",
+      metric: {
+        before: "~4 analyst-days",
+        after: "~1 day",
+        headline: "About 75% less analyst time on the first pass",
+      },
+      liveTool: true,
+      summary:
+        "A pipeline reads the whole ISMS document set and drafts a cited verdict for every control, so a reviewer checks 93 pre-argued findings instead of writing them from a blank page.",
+    },
+    {
+      slug: "dpa-review",
+      number: "02",
+      area: "Privacy & Data Protection",
+      accent: "clay",
+      title: "Data Processing Agreement review, governed end to end",
+      process:
+        "Pre-signature review of a DPA against GDPR Article 28(3), the Article 32 security obligations, and the Chapter V transfer rules.",
+      metric: {
+        before: "~90 min / agreement",
+        after: "~20 min review",
+        headline: "Around 4x throughput on the DPA queue",
+      },
+      liveTool: false,
+      summary:
+        "A retrieval-grounded review skill checks the agreement clause by clause against the GDPR articles and the organisation's playbook, an evaluator skill critiques that draft, and a lawyer approves before anything is final.",
+    },
+    {
+      slug: "ai-governance",
+      number: "03",
+      area: "AI Governance",
+      accent: "indigo",
+      title: "EU AI Act readiness for an enterprise AI use case",
+      process:
+        "Intake of a new AI system: risk classification under the EU AI Act and a mapped obligation set (Articles 9, 10, 13, 14, 15) with an owner for each.",
+      metric: {
+        before: "~2 days / system",
+        after: "~3 hours",
+        headline: "About one working day back per AI system assessed",
+      },
+      liveTool: false,
+      summary:
+        "The workflow classifies the system's risk tier, pulls the obligations that attach to that tier, and produces a conformity register with a gap and an owner against each one, ready for the governance committee.",
+    },
+  ],
 
   /** Downloadable working templates, served from /public/templates. */
   templates: [
@@ -53,3 +117,5 @@ export const siteConfig = {
     },
   ],
 } as const;
+
+export type CaseStudy = (typeof siteConfig.caseStudies)[number];

@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
+import Link from "next/link";
 import { PIPELINE_STEPS, VERDICT_RUBRIC, VERDICT_ORDER } from "@/lib/rubric";
-import type { AnalysisResult, Control, Verdict } from "@/lib/types";
+import type { AnalysisResult, Control, ControlFinding, Verdict } from "@/lib/types";
 
 const THEMES = ["Organizational", "People", "Physical", "Technological"] as const;
 
@@ -11,12 +12,6 @@ const badgeClass: Record<Verdict, string> = {
   Partial: "badge-partial",
   Gap: "badge-gap",
   "Not Applicable": "badge-na",
-};
-const dotClass: Record<Verdict, string> = {
-  Met: "dot-met",
-  Partial: "dot-partial",
-  Gap: "dot-gap",
-  "Not Applicable": "dot-na",
 };
 
 function csv(rows: (string | number)[][]): string {
@@ -41,7 +36,12 @@ function download(name: string, text: string, type: string) {
   URL.revokeObjectURL(url);
 }
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+type SampleState = {
+  mode: "live" | "recorded";
+  model: string | null;
+  note?: string;
+  findings: ControlFinding[];
+};
 
 export default function ToolClient({
   initial,
@@ -52,17 +52,18 @@ export default function ToolClient({
   controls: Control[];
   liveEnabled: boolean;
 }) {
-  const [result, setResult] = useState<AnalysisResult>(initial);
-  const [phase, setPhase] = useState<"idle" | "running" | "done">("idle");
-  const [step, setStep] = useState<string>("");
-  const [note, setNote] = useState<string | null>(null);
+  const [result] = useState<AnalysisResult>(initial);
   const [showHow, setShowHow] = useState(false);
+
+  // live sample
+  const [samplePhase, setSamplePhase] = useState<"idle" | "running" | "done" | "error">("idle");
+  const [sample, setSample] = useState<SampleState | null>(null);
+  const [sampleErr, setSampleErr] = useState<string | null>(null);
 
   const [verdictFilter, setVerdictFilter] = useState<Verdict | "All">("All");
   const [themeFilter, setThemeFilter] = useState<(typeof THEMES)[number] | "All">("All");
   const [q, setQ] = useState("");
   const [open, setOpen] = useState<string | null>(null);
-  const runId = useRef(0);
 
   const ctl = useMemo(
     () => Object.fromEntries(controls.map((c) => [c.id, c])),
@@ -84,88 +85,115 @@ export default function ToolClient({
       });
   }, [result, ctl, verdictFilter, themeFilter, q]);
 
-  async function run() {
-    const id = ++runId.current;
-    setPhase("running");
-    setNote(null);
-    setOpen(null);
-
-    // Walk through the themed passes so the process is visible.
-    for (const theme of THEMES) {
-      if (runId.current !== id) return;
-      const n = controls.filter((c) => c.theme === theme).length;
-      setStep(`Assessing ${theme} controls (${n})`);
-      await sleep(750);
-    }
-    if (runId.current !== id) return;
-    setStep("Validating 93 responses in code");
-    await sleep(650);
-
-    if (liveEnabled) {
-      try {
-        const res = await fetch("/api/analyze", { method: "POST" });
-        const data = await res.json();
-        if (runId.current !== id) return;
-        if (data.error) {
-          setNote(`Live run failed: ${data.error}`);
-        } else {
-          setResult(data as AnalysisResult);
-          setNote(
-            `Live run complete. ${data.mode} mode${data.model ? `, ${data.model}` : ""}.`,
-          );
-        }
-      } catch (e) {
-        setNote(e instanceof Error ? e.message : "request failed");
+  async function runSample() {
+    setSamplePhase("running");
+    setSampleErr(null);
+    try {
+      const res = await fetch("/api/analyze-sample", { method: "POST" });
+      const data = await res.json();
+      if (data.error) {
+        setSampleErr(data.error);
+        setSamplePhase("error");
+        return;
       }
-    } else {
-      setNote(
-        "This is a recorded run over the sample company. To execute a fresh one against the model, run the repository locally with an ANTHROPIC_API_KEY set.",
-      );
+      setSample({
+        mode: data.mode,
+        model: data.model ?? null,
+        note: data.note,
+        findings: data.findings ?? [],
+      });
+      setSamplePhase("done");
+    } catch (e) {
+      setSampleErr(e instanceof Error ? e.message : "request failed");
+      setSamplePhase("error");
     }
-    if (runId.current !== id) return;
-    setPhase("done");
-    setStep("");
   }
 
   const s = result.summary;
 
   return (
-    <div className="container-x py-10">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="kicker">Live tool</p>
-          <h1 className="display mt-2 text-[clamp(1.7rem,3vw,2.3rem)]">
-            {result.company}: Annex A gap assessment
-          </h1>
-          <p className="mt-2 max-w-2xl text-[14px] text-[var(--ink-2)]">
-            The output of the case study pipeline: a drafted verdict for all{" "}
-            {result.findings.length} ISO/IEC 27001:2022 Annex A controls, each traceable to a
-            sentence in the sample company&rsquo;s documents.{" "}
-            {result.mode === "demo" ? "Pre-computed result." : "Live model result."}
-          </p>
-        </div>
-        <button
-          className="btn btn-primary"
-          onClick={run}
-          disabled={phase === "running"}
-        >
-          {phase === "running"
-            ? "Running…"
-            : liveEnabled
-              ? "Run live analysis"
-              : "Replay the AI run"}
-        </button>
+    <div className="container-x py-10" data-accent="forest">
+      {/* header */}
+      <div>
+        <p className="kicker on-accent">Live tool · Case study 01</p>
+        <h1 className="display mt-2 text-[clamp(1.7rem,3vw,2.3rem)]">
+          {result.company}: Annex A gap assessment
+        </h1>
+        <p className="mt-3 max-w-2xl text-[14.5px] leading-relaxed text-[var(--ink-2)]">
+          This is the finished output of the case-study pipeline: a drafted verdict for all{" "}
+          {result.findings.length} ISO/IEC 27001:2022 Annex A controls of a sample company,
+          each traceable to a sentence in its documents. Filter it, open any control for the
+          decision trace, or run a live sample below.{" "}
+          <Link href="/case-study/iso-27001" className="font-semibold text-[var(--forest)]">
+            How it was built and measured →
+          </Link>
+        </p>
       </div>
 
-      {(phase === "running" || note) && (
-        <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--surface)] px-4 py-3 text-[13.5px] text-[var(--ink-2)]">
-          {phase === "running" ? (
-            <span className="running">{step}</span>
-          ) : (
-            note
-          )}
+      {/* live sample */}
+      <div className="mt-6 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div className="text-[13px] font-semibold">Run a live sample</div>
+            <div className="mt-0.5 text-[12.5px] text-[var(--ink-2)]">
+              Four controls (A.5.1, A.6.3, A.7.4, A.8.8), one model call.{" "}
+              {liveEnabled
+                ? "This server has a key, so the button calls the model."
+                : "No key on this server yet, so it returns the recorded verdicts for those four."}
+            </div>
+          </div>
+          <button
+            className="btn btn-accent"
+            onClick={runSample}
+            disabled={samplePhase === "running"}
+          >
+            {samplePhase === "running" ? "Running…" : samplePhase === "done" ? "Run again" : "Run live sample"}
+          </button>
         </div>
-      )}
+
+        {samplePhase === "error" && (
+          <p className="mt-3 text-[13px] text-[var(--v-gap)]">Sample run failed: {sampleErr}</p>
+        )}
+
+        {sample && samplePhase === "done" && (
+          <div className="mt-4">
+            <div
+              className={`mb-3 inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-[12px] font-semibold ${
+                sample.mode === "live"
+                  ? "bg-[var(--v-met-bg)] text-[var(--v-met)]"
+                  : "bg-[var(--v-partial-bg)] text-[var(--v-partial)]"
+              }`}
+            >
+              {sample.mode === "live" ? "● Live model run" : "● Recorded result"}
+              {sample.note ? <span className="font-normal">{sample.note}</span> : null}
+            </div>
+            <ul className="divide-y divide-[var(--line)] rounded-xl border border-[var(--line)]">
+              {sample.findings.map((f) => (
+                <li key={f.controlId} className="px-4 py-3">
+                  <div className="flex items-start gap-3">
+                    <span className={`badge ${badgeClass[f.verdict]} mt-0.5`}>{f.verdict}</span>
+                    <div className="min-w-0">
+                      <div className="text-[13px] font-semibold">
+                        {f.controlId}. {ctl[f.controlId]?.title ?? ""}
+                      </div>
+                      <div className="mt-1 text-[12.5px] text-[var(--ink-2)]">{f.rationale}</div>
+                      {f.evidence[0] && (
+                        <div className="quote mt-1.5 text-[12px]">
+                          {f.evidence[0].quote}
+                          <span className="not-italic text-[var(--ink-3)]"> ({f.evidence[0].source})</span>
+                        </div>
+                      )}
+                    </div>
+                    <span className="ml-auto shrink-0 text-[11.5px] text-[var(--ink-3)]">
+                      conf {f.confidence.toFixed(2)}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
 
       {/* how it works */}
       <div className="mt-6 card-flat overflow-hidden">
@@ -173,9 +201,7 @@ export default function ToolClient({
           className="flex w-full items-center justify-between px-5 py-3.5 text-left"
           onClick={() => setShowHow((v) => !v)}
         >
-          <span className="text-[14px] font-semibold">
-            How the AI reaches a verdict
-          </span>
+          <span className="text-[14px] font-semibold">How the AI reaches a verdict</span>
           <span className="text-[var(--ink-3)]">{showHow ? "Hide" : "Show"}</span>
         </button>
         {showHow && (
@@ -183,13 +209,9 @@ export default function ToolClient({
             <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {PIPELINE_STEPS.map((p) => (
                 <li key={p.n}>
-                  <div className="text-[13px] font-bold text-[var(--forest)]">
-                    Step {p.n}
-                  </div>
+                  <div className="text-[13px] font-bold text-[var(--forest)]">Step {p.n}</div>
                   <div className="mt-0.5 text-[13.5px] font-semibold">{p.title}</div>
-                  <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--ink-2)]">
-                    {p.body}
-                  </p>
+                  <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--ink-2)]">{p.body}</p>
                 </li>
               ))}
             </ol>
@@ -205,9 +227,7 @@ export default function ToolClient({
                     </dt>
                     <dd className="text-[13px] leading-relaxed text-[var(--ink-2)]">
                       {VERDICT_RUBRIC[v].test}{" "}
-                      <span className="text-[var(--ink-3)]">
-                        Needs: {VERDICT_RUBRIC[v].needs}
-                      </span>
+                      <span className="text-[var(--ink-3)]">Needs: {VERDICT_RUBRIC[v].needs}</span>
                     </dd>
                   </div>
                 ))}
@@ -257,9 +277,7 @@ export default function ToolClient({
         </select>
         <select
           value={themeFilter}
-          onChange={(e) =>
-            setThemeFilter(e.target.value as (typeof THEMES)[number] | "All")
-          }
+          onChange={(e) => setThemeFilter(e.target.value as (typeof THEMES)[number] | "All")}
           className="rounded-lg border border-[var(--line-2)] bg-[var(--surface)] px-3 py-2 text-[13.5px]"
         >
           <option value="All">All themes</option>
@@ -275,11 +293,7 @@ export default function ToolClient({
           <button
             className="btn btn-ghost py-2! text-[12.5px]!"
             onClick={() =>
-              download(
-                "analysis.json",
-                JSON.stringify(result, null, 2),
-                "application/json",
-              )
+              download("analysis.json", JSON.stringify(result, null, 2), "application/json")
             }
           >
             Export JSON
@@ -352,17 +366,13 @@ export default function ToolClient({
                 className="flex w-full items-start gap-3 px-5 py-4 text-left hover:bg-black/[0.015]"
                 onClick={() => setOpen(isOpen ? null : f.controlId)}
               >
-                <span className={`badge ${badgeClass[f.verdict]} mt-0.5`}>
-                  {f.verdict}
-                </span>
+                <span className={`badge ${badgeClass[f.verdict]} mt-0.5`}>{f.verdict}</span>
                 <span className="min-w-0 flex-1">
                   <span className="text-[13.5px] font-semibold">
                     {f.controlId}. {c?.title ?? ""}
                   </span>
                   <span className="ml-2 text-[11.5px] text-[var(--ink-3)]">{c?.theme}</span>
-                  <span className="mt-1 block text-[13px] text-[var(--ink-2)]">
-                    {f.rationale}
-                  </span>
+                  <span className="mt-1 block text-[13px] text-[var(--ink-2)]">{f.rationale}</span>
                 </span>
                 <span className="mt-0.5 shrink-0 text-[11.5px] text-[var(--ink-3)]">
                   conf {f.confidence.toFixed(2)}
@@ -381,9 +391,7 @@ export default function ToolClient({
                     </div>
                     <div>
                       <dt className="font-semibold">Test applied for &ldquo;{f.verdict}&rdquo;</dt>
-                      <dd className="text-[var(--ink-2)]">
-                        {VERDICT_RUBRIC[f.verdict].test}
-                      </dd>
+                      <dd className="text-[var(--ink-2)]">{VERDICT_RUBRIC[f.verdict].test}</dd>
                     </div>
                     <div>
                       <dt className="font-semibold">What the model found in the documents</dt>
@@ -393,10 +401,7 @@ export default function ToolClient({
                             {f.evidence.map((e, i) => (
                               <li key={i} className="quote text-[12.5px]">
                                 {e.quote}
-                                <span className="not-italic text-[var(--ink-3)]">
-                                  {" "}
-                                  ({e.source})
-                                </span>
+                                <span className="not-italic text-[var(--ink-3)]"> ({e.source})</span>
                               </li>
                             ))}
                           </ul>
@@ -440,9 +445,9 @@ export default function ToolClient({
       <p className="mt-4 text-[12.5px] text-[var(--ink-3)]">
         This is a reviewed draft, not a certification result. It does not replace an
         assessor, an internal audit, or a certification body.{" "}
-        <a href="/case-study" className="font-semibold text-[var(--forest)]">
+        <Link href="/case-study/iso-27001" className="font-semibold text-[var(--forest)]">
           Read how it was built and measured.
-        </a>
+        </Link>
       </p>
     </div>
   );

@@ -18,9 +18,10 @@ export default function ToolPage() {
         <div className="container-x py-4 text-[13px] leading-relaxed text-[var(--ink-2)]">
           <span className="font-semibold text-[var(--ink)]">About this data. </span>
           {COMPANY_PROFILE.replace(/\s+/g, " ")}{" "}
+          The full 93-control assessment below is a recorded run.{" "}
           {live
-            ? "This server has an API key configured, so the run button calls the model."
-            : "No API key is configured here, so the run button replays the recorded assessment. Run the repository locally with a key to execute a fresh pass."}
+            ? "This server has an API key, so the live sample calls the model."
+            : "The live sample returns recorded verdicts until a spending-capped key is added."}
         </div>
       </div>
       <ToolClient initial={initial} controls={[...CONTROLS]} liveEnabled={live} />

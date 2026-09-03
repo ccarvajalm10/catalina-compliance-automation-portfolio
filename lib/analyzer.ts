@@ -214,3 +214,62 @@ export async function analyzeLive(
     summary: computeSummary(findings),
   };
 }
+
+/** Controls used by the public "run a live sample" button: one per theme,
+ *  chosen so the sample shows a spread of likely verdicts. */
+export const SAMPLE_CONTROL_IDS = ["A.5.1", "A.6.3", "A.7.4", "A.8.8"] as const;
+
+/**
+ * Live analysis of a small, fixed set of controls. Same prompt and defensive
+ * parsing as the full run, in a single model call. Requires ANTHROPIC_API_KEY.
+ */
+export async function analyzeSample(
+  docs: AnalysisInputDoc[],
+  opts: { company: string; model?: string; controlIds?: readonly string[] },
+): Promise<AnalysisResult> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) throw new Error("ANTHROPIC_API_KEY is not set");
+  const model = opts.model || DEFAULT_MODEL;
+  const ids = opts.controlIds ?? SAMPLE_CONTROL_IDS;
+  const batch = ids
+    .map((id) => CONTROLS_BY_ID[id])
+    .filter((c): c is Control => Boolean(c));
+
+  const client = new Anthropic({ apiKey });
+  const res = await client.messages.create({
+    model,
+    max_tokens: 2048,
+    system: SYSTEM_PROMPT,
+    messages: [{ role: "user", content: buildUserPrompt(docs, batch) }],
+  });
+  const textBlock = res.content.find((b) => b.type === "text");
+  const text = textBlock && textBlock.type === "text" ? textBlock.text : "";
+  const parsed = parseFindings(text);
+  const seen = new Set(parsed.map((f) => f.controlId));
+  for (const c of batch) {
+    if (!seen.has(c.id)) {
+      parsed.push({
+        controlId: c.id,
+        verdict: "Gap",
+        confidence: 0.4,
+        rationale:
+          "Model did not return a verdict for this control; treated as a gap pending review.",
+        evidence: [],
+        remediation: "Manually assess this control.",
+      });
+    }
+  }
+  const findings = parsed
+    .filter((f) => batch.some((c) => c.id === f.controlId))
+    .sort((a, b) => a.controlId.localeCompare(b.controlId, undefined, { numeric: true }));
+
+  return {
+    company: opts.company,
+    generatedAt: new Date().toISOString(),
+    mode: "live",
+    model,
+    documentsAnalyzed: docs.map((d) => d.name),
+    findings,
+    summary: computeSummary(findings),
+  };
+}
