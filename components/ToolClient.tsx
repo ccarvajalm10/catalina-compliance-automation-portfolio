@@ -175,7 +175,7 @@ export default function ToolClient({
 
         <div className="ml-auto flex gap-2">
           <button
-            className="btn btn-ghost !py-2 !text-[13px]"
+            className="btn btn-ghost py-2! text-[13px]!"
             onClick={() =>
               download(
                 "analysis.json",
@@ -187,7 +187,7 @@ export default function ToolClient({
             Export JSON
           </button>
           <button
-            className="btn btn-ghost !py-2 !text-[13px]"
+            className="btn btn-ghost py-2! text-[13px]!"
             onClick={() =>
               download(
                 "remediation-backlog.csv",
@@ -210,7 +210,7 @@ export default function ToolClient({
             Export backlog
           </button>
           <button
-            className="btn btn-ghost !py-2 !text-[13px]"
+            className="btn btn-ghost py-2! text-[13px]!"
             onClick={() =>
               download(
                 "statement-of-applicability-draft.csv",
