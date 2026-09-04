@@ -55,6 +55,9 @@ export default function Home() {
                 </div>
               ))}
             </div>
+            <p className="mt-2 text-[11px] text-[#b7afe0]">
+              Demonstrative figures from a controlled build, not measured results.
+            </p>
           </div>
         </div>
       </section>
@@ -68,7 +71,7 @@ export default function Home() {
         <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[var(--ink-2)]">
           Take a slow, document-heavy process. Put a governed AI workflow through the first
           pass, with retrieval grounding, an encoded playbook, an evaluator check and a
-          human approval gate. Measure the time before and after.
+          human approval gate. Show the time before and after on a fixed example.
         </p>
 
         <div className="mt-10 grid gap-5">
@@ -97,7 +100,7 @@ export default function Home() {
                   <s>{c.metric.before}</s>
                   <b>{c.metric.after}</b>
                 </div>
-                <div className="mt-2 max-w-[190px] text-[12px] font-semibold text-[var(--accent-deep)] sm:ml-auto">
+                <div className="mt-2 max-w-[240px] text-[12px] font-semibold text-[var(--accent-deep)] sm:ml-auto">
                   {c.metric.headline}
                 </div>
                 <span className="mt-3 inline-block text-[13px] font-semibold text-[var(--accent-deep)] group-hover:underline">
@@ -107,6 +110,10 @@ export default function Home() {
             </Link>
           ))}
         </div>
+
+        <p className="mt-5 max-w-2xl text-[12.5px] leading-relaxed text-[var(--ink-3)]">
+          {siteConfig.metricsDisclaimer}
+        </p>
       </section>
 
       {/* ================= how this was built ================= */}

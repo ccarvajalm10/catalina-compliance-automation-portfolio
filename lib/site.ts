@@ -56,8 +56,16 @@ export const siteConfig = {
   },
 
   /**
+   * Shown wherever a before/after figure appears. These are NOT measured
+   * results; edit this once and it updates everywhere.
+   */
+  metricsDisclaimer:
+    "The before and after figures on this site are demonstrative. They describe what this controlled build produces on a fixed example, not measured outcomes from a real deployment. None of these examples has been empirically validated.",
+
+  /**
    * The three case studies. `slug` is the URL under /case-study.
-   * `metric` is the headline "pain the AI solves, with a number".
+   * `metric.headline` is written in conditional voice on purpose: it is a
+   * demonstration of what the workflow could do, not a claim that it has.
    */
   caseStudies: [
     {
@@ -71,7 +79,8 @@ export const siteConfig = {
       metric: {
         before: "~4 analyst-days",
         after: "~1 day",
-        headline: "About 75% less analyst time on the first pass",
+        headline:
+          "In this build, a first pass that would take about four analyst-days is produced in about one (draft plus review).",
       },
       liveTool: true,
       summary:
@@ -88,7 +97,8 @@ export const siteConfig = {
       metric: {
         before: "~90 min / agreement",
         after: "~20 min review",
-        headline: "Around 4x throughput on the DPA queue",
+        headline:
+          "In this build, a review that would take about 90 minutes becomes a check of about 20.",
       },
       liveTool: false,
       summary:
@@ -105,7 +115,8 @@ export const siteConfig = {
       metric: {
         before: "~2 days / system",
         after: "~3 hours",
-        headline: "About one working day back per AI system assessed",
+        headline:
+          "In this build, an assessment that would take about two days is produced in about three hours.",
       },
       liveTool: false,
       summary:

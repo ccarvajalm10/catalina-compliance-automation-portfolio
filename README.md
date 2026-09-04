@@ -9,9 +9,12 @@ processes: an ISO/IEC 27001 gap analysis, a GDPR Data Processing Agreement revie
 EU AI Act readiness assessment. Each is an illustrative implementation, assessed against
 the external legal requirements it targets.
 
-The ISO 27001 case has a working tool behind it: a demonstration that AI can compress the
-first Annex A gap analysis from roughly four analyst-days to about one, without giving up
-traceability or handing judgement to a model.
+The ISO 27001 case has a working tool behind it. It is built to demonstrate that AI *could*
+compress the first Annex A gap analysis from roughly four analyst-days to about one without
+giving up traceability or handing judgement to a model. The before/after figures across all
+three cases are demonstrative — what these controlled builds produce on a fixed example —
+not measured outcomes from a deployment, and none of the examples has been empirically
+validated.
 
 It is one deployable [Next.js](https://nextjs.org) app with three things in it:
 

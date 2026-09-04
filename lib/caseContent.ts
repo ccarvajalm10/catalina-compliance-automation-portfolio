@@ -64,7 +64,8 @@ export const DPA_REVIEW: WorkedExample = {
   metric: {
     before: "~90 min / agreement",
     after: "~20 min review",
-    headline: "Around 4x throughput on the DPA queue",
+    headline:
+      "In this build, a review that would take about 90 minutes becomes a check of about 20.",
   },
   process:
     "Before a controller signs a contract with a vendor that will process personal data, someone in the legal or privacy team reads the Data Processing Agreement and confirms it carries every term the GDPR requires: the mandatory processing clauses in Article 28(3), security obligations that meet Article 32, and lawful handling of any transfer outside the EEA under Chapter V. The output is a redline and a short recommendation to the business.",
@@ -177,9 +178,10 @@ export const DPA_REVIEW: WorkedExample = {
       "Not ready to sign. Two failures (sub-processor flow-down, undocumented US transfer) and two flags (security floor, audit rights). Draft redlines generated for all four; routed to the responsible lawyer for approval before sending to the vendor.",
   },
   method: [
+    "These figures are demonstrative, not measured. They describe this build on one fixed sample agreement; there is no deployment data behind them and no empirical validation.",
     "The ~90 minute baseline is a typical hands-on review time for a mid-length vendor DPA against a full Article 28 checklist, drafting the redline included.",
     "The ~20 minute after figure is the model pass (about a minute) plus a reviewer working down 10 pre-argued findings, each with the clause reference and the retrieved article beside it, accepting or editing the draft redline.",
-    "The gain is throughput on a queue: a reviewer who cleared 3 to 4 agreements in a session clears 12 to 15, with the same checklist applied identically to each.",
+    "On those figures the throughput on a queue would rise several times over, with the same checklist applied identically to each agreement. That is the claim the build is meant to illustrate, not one it proves.",
   ],
   weak: [
     "Novel or heavily negotiated drafting. Bespoke clauses that trade one protection for another need a lawyer's read; the skill flags them rather than scoring them.",
@@ -202,7 +204,8 @@ export const AI_GOVERNANCE: WorkedExample = {
   metric: {
     before: "~2 days / system",
     after: "~3 hours",
-    headline: "About one working day back per AI system assessed",
+    headline:
+      "In this build, an assessment that would take about two days is produced in about three hours.",
   },
   process:
     "When a team wants to deploy or build an AI system, governance has to place it under the EU AI Act: is it prohibited, high-risk, limited-risk or minimal-risk, and which obligations follow from that tier. The output is a conformity register: every applicable obligation, its current state, the gap, and a named owner, ready for the AI governance committee to sign off or block.",
@@ -310,9 +313,10 @@ export const AI_GOVERNANCE: WorkedExample = {
       "High-risk, not deployable in current state. Two obligations with material failures (Art 10 data governance, Art 26 information duties) and Art 9 absent. Register issued to the AI governance committee with owners assigned; committee to decide on a remediation deadline or a hold.",
   },
   method: [
+    "These figures are demonstrative, not measured. They describe this build on one fixed sample system; there is no deployment data behind them and no empirical validation.",
     "The ~2 day baseline is a realistic effort for a first AI Act classification and obligation mapping of one non-trivial system, done from the Act and internal policy.",
     "The ~3 hour after figure is the model pass plus a governance analyst checking the classification against the retrieved provisions and reviewing each obligation row before it goes to committee.",
-    "The saving is speed to a position: a defensible draft register in an afternoon means the assessment happens before deployment instead of after.",
+    "On those figures the assessment would reach a defensible draft in an afternoon rather than over two days, so it happens before deployment instead of after. That is what the build is meant to show, not something it has proven.",
   ],
   weak: [
     "Borderline classification. Systems near the Annex III edges or relying on an Article 6(3) derogation need a lawyer's judgement; the workflow surfaces the question, it does not close it.",

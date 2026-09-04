@@ -66,9 +66,10 @@ export default function CaseStudyIndex() {
 
       <p className="mt-10 rounded-xl border border-dashed border-[var(--line-2)] bg-[var(--paper-2)] p-4 text-[12.5px] leading-relaxed text-[var(--ink-2)]">
         Each case study is an illustrative implementation, not a claim of proven
-        effectiveness. Workflows are assessed against external legal requirements (ISO/IEC
-        27001, GDPR, the EU AI Act), not against internally defined success criteria. All
-        sample data is fictional and nothing here is legal advice.
+        effectiveness. {siteConfig.metricsDisclaimer} Workflows are assessed against external
+        legal requirements (ISO/IEC 27001, GDPR, the EU AI Act), not against internally
+        defined success criteria. All sample data is fictional and nothing here is legal
+        advice.
       </p>
     </div>
   );

@@ -11,7 +11,7 @@ import { PIPELINE_STEPS, VERDICT_ORDER, VERDICT_RUBRIC } from "@/lib/rubric";
 export const metadata: Metadata = {
   title: "Case study 01: an ISO 27001 gap analysis rebuilt as an AI pipeline",
   description:
-    "How a first ISO/IEC 27001:2022 Annex A gap analysis goes from roughly four analyst-days to about one, by letting an AI pipeline draft a cited verdict for every control and having a reviewer check instead of author.",
+    "A demonstrative build showing how a first ISO/IEC 27001:2022 Annex A gap analysis could go from roughly four analyst-days to about one, by letting an AI pipeline draft a cited verdict for every control and having a reviewer check instead of author. Not an empirically validated result.",
 };
 
 const FLOW = [
@@ -48,8 +48,8 @@ export default function CaseStudy() {
         </h1>
         <p className="mt-5 text-[17px] leading-relaxed text-[var(--ink-2)]">
           This is the one case study with a working tool behind it. It takes the first
-          readiness gap analysis against ISO/IEC 27001:2022, rebuilds it around an AI
-          pipeline, and measures what changed. The{" "}
+          readiness gap analysis against ISO/IEC 27001:2022 and rebuilds it around an AI
+          pipeline. The{" "}
           <Link href="/tool" className="font-semibold text-[var(--forest)]">
             live tool
           </Link>{" "}
@@ -58,20 +58,24 @@ export default function CaseStudy() {
 
         <div className="mt-6 grid gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 sm:grid-cols-[1fr_auto_1fr] sm:items-center sm:gap-6">
           <div>
-            <div className="text-[12px] text-[var(--ink-3)]">Today, from scratch</div>
+            <div className="text-[12px] text-[var(--ink-3)]">Baseline effort</div>
             <div className="mt-1 font-serif text-[22px] text-[var(--ink-2)]">
               <s className="decoration-[var(--v-gap)]">~4 analyst-days</s>
             </div>
           </div>
           <div className="hidden text-[var(--ink-3)] sm:block">→</div>
           <div>
-            <div className="text-[12px] text-[var(--ink-3)]">Draft, then reviewed</div>
+            <div className="text-[12px] text-[var(--ink-3)]">In this build</div>
             <div className="metric-value mt-1">~1 day</div>
           </div>
           <div className="sm:col-span-3">
             <div className="rounded-lg bg-[var(--accent-tint)] px-3 py-2 text-[13px] font-semibold text-[var(--accent-deep)]">
-              About 75% less analyst time on the first pass, with a citation behind every verdict
+              In this build, a first pass that would take about four analyst-days is produced
+              in about one, with a citation behind every verdict.
             </div>
+            <p className="mt-2 text-[11.5px] text-[var(--ink-3)]">
+              Demonstrative figure from a controlled build, not a measured result.
+            </p>
           </div>
         </div>
 
@@ -161,6 +165,12 @@ export default function CaseStudy() {
       <article className="container-x max-w-[880px] py-10">
         <div className="prose">
           <h2>How the time figures are derived</h2>
+          <p>
+            These figures are <strong>demonstrative, not measured</strong>. They describe
+            this build running on one fixed sample company. There is no deployment behind
+            them and no empirical validation; the &ldquo;about four analyst-days&rdquo;
+            baseline is an effort estimate, not a stopwatch reading.
+          </p>
           <ul>
             <li>
               <strong>Model pass:</strong> about 3 to 5 minutes of compute for all 93

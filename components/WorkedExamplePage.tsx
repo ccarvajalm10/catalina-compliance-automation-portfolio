@@ -4,6 +4,7 @@ import { CaseSample } from "@/components/CaseSample";
 import { References } from "@/components/References";
 import { Consultation } from "@/components/Consultation";
 import { CASE_RESOURCES } from "@/lib/resources";
+import { siteConfig } from "@/lib/site";
 import type { WorkedExample } from "@/lib/caseContent";
 
 function IconCheck() {
@@ -38,20 +39,23 @@ export function WorkedExamplePage({ ex }: { ex: WorkedExample }) {
 
         <div className="mt-6 grid gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 sm:grid-cols-[1fr_auto_1fr] sm:items-center sm:gap-6">
           <div>
-            <div className="text-[12px] text-[var(--ink-3)]">Today</div>
+            <div className="text-[12px] text-[var(--ink-3)]">Baseline effort</div>
             <div className="mt-1 font-serif text-[22px] text-[var(--ink-2)]">
               <s className="decoration-[var(--v-gap)]">{ex.metric.before}</s>
             </div>
           </div>
           <div className="hidden text-[var(--ink-3)] sm:block">→</div>
           <div>
-            <div className="text-[12px] text-[var(--ink-3)]">With the governed workflow</div>
+            <div className="text-[12px] text-[var(--ink-3)]">In this build</div>
             <div className="metric-value mt-1">{ex.metric.after}</div>
           </div>
           <div className="sm:col-span-3">
             <div className="rounded-lg bg-[var(--accent-tint)] px-3 py-2 text-[13px] font-semibold text-[var(--accent-deep)]">
               {ex.metric.headline}
             </div>
+            <p className="mt-2 text-[11.5px] text-[var(--ink-3)]">
+              Demonstrative figure from a controlled build, not a measured result.
+            </p>
           </div>
         </div>
       </section>
@@ -60,10 +64,10 @@ export function WorkedExamplePage({ ex }: { ex: WorkedExample }) {
       <section className="container-x max-w-[880px] py-4">
         <p className="rounded-xl border border-dashed border-[var(--line-2)] bg-[var(--paper-2)] p-4 text-[12.5px] leading-relaxed text-[var(--ink-2)]">
           This is an <strong>illustrative implementation</strong> of a workflow I would build
-          working in a legal-compliance team, not a claim of proven effectiveness. It is
-          assessed against externally established legal requirements, not against internally
-          defined success criteria. The sample data is fictional and nothing here is legal
-          advice.
+          working in a legal-compliance team, not a claim of proven effectiveness.{" "}
+          {siteConfig.metricsDisclaimer} The workflow is assessed against externally
+          established legal requirements, not against internally defined success criteria.
+          The sample data is fictional and nothing here is legal advice.
         </p>
       </section>
 
