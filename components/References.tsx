@@ -57,39 +57,53 @@ export function References({
               </p>
             )}
             <ul className="mt-3 divide-y divide-[var(--line)] rounded-xl border border-[var(--line)]">
-              {g.items.map((r) => (
-                <li key={r.id + r.url} className="p-4">
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                    <span className="text-[13.5px] font-semibold text-[var(--ink)]">{r.id}</span>
-                    <span className="text-[12px] text-[var(--ink-3)]">·</span>
-                    <span className="text-[12.5px] text-[var(--ink-2)]">{r.publisher}</span>
-                    <span
-                      className={`ml-auto inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[10.5px] font-semibold ${
-                        r.kind === "Standard"
-                          ? "bg-[var(--paper-2)] text-[var(--ink-2)]"
-                          : "bg-[var(--v-met-bg)] text-[var(--v-met)]"
-                      }`}
-                    >
-                      {r.kind !== "Standard" && <Shield />}
-                      {r.kind === "Standard" ? "Standard" : "Official source"}
-                    </span>
-                  </div>
-                  <div className="mt-1 text-[13px] text-[var(--ink)]">{r.title}</div>
-                  <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--ink-2)]">{r.note}</p>
-                  <a
-                    href={r.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-1.5 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[var(--accent-deep)] hover:underline"
-                  >
-                    {domainOf(r.url)}
-                    <span aria-hidden>↗</span>
-                    {!r.free && (
-                      <span className="ml-1 font-normal text-[var(--ink-3)]">(purchase)</span>
+              {g.items.map((r) => {
+                const neutral = r.kind === "Standard" || r.kind === "Guide";
+                return (
+                  <li key={r.id + (r.url ?? "")} className="p-4">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <span className="text-[13.5px] font-semibold text-[var(--ink)]">{r.id}</span>
+                      <span className="text-[12px] text-[var(--ink-3)]">·</span>
+                      <span className="text-[12.5px] text-[var(--ink-2)]">{r.publisher}</span>
+                      <span
+                        className={`ml-auto inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[10.5px] font-semibold ${
+                          neutral
+                            ? "bg-[var(--paper-2)] text-[var(--ink-2)]"
+                            : "bg-[var(--v-met-bg)] text-[var(--v-met)]"
+                        }`}
+                      >
+                        {!neutral && <Shield />}
+                        {r.kind === "Standard"
+                          ? "Standard"
+                          : r.kind === "Guide"
+                            ? "Guide"
+                            : "Official source"}
+                      </span>
+                    </div>
+                    <div className="mt-1 text-[13px] text-[var(--ink)]">{r.title}</div>
+                    <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--ink-2)]">{r.note}</p>
+                    {r.url ? (
+                      <a
+                        href={r.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-1.5 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[var(--accent-deep)] hover:underline"
+                      >
+                        {domainOf(r.url)}
+                        <span aria-hidden>↗</span>
+                        {!r.free && (
+                          <span className="ml-1 font-normal text-[var(--ink-3)]">(purchase)</span>
+                        )}
+                      </a>
+                    ) : (
+                      <span className="mt-1.5 inline-block text-[12px] text-[var(--ink-3)]">
+                        Published by {r.publisher}
+                        {!r.free && " — purchase required"}
+                      </span>
                     )}
-                  </a>
-                </li>
-              ))}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ))}

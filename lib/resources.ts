@@ -11,14 +11,16 @@ export type ResourceKind =
   | "Regulation"
   | "Standard"
   | "Regulator guidance"
-  | "Framework";
+  | "Framework"
+  | "Guide";
 
 export type Resource = {
   id: string;
   title: string;
   publisher: string;
   kind: ResourceKind;
-  url: string;
+  /** Omitted for paywalled standards that have no stable free page. */
+  url?: string;
   note: string;
   free: boolean;
 };
@@ -48,7 +50,7 @@ export const ISO_RESOURCES: ResourceGroup[] = [
         title: "Information security controls",
         publisher: "ISO",
         kind: "Standard",
-        url: "https://www.iso.org/standard/75652",
+        url: "https://www.iso.org/standard/75652.html",
         note: "Implementation guidance for all 93 Annex A controls. The basis for the paraphrased control objectives used in the tool.",
         free: false,
       },
@@ -57,9 +59,18 @@ export const ISO_RESOURCES: ResourceGroup[] = [
         title: "Guidance on managing information security risks",
         publisher: "ISO",
         kind: "Standard",
-        url: "https://www.iso.org/standard/80585",
+        url: "https://www.iso.org/standard/80585.html",
         note: "The risk-management method behind control selection and the Statement of Applicability.",
         free: false,
+      },
+      {
+        id: "NQA ISO/IEC 27001:2022 Implementation Guide",
+        title: "A section-by-section implementation guide with the PDCA cycle and risk-based thinking",
+        publisher: "NQA (UKAS-accredited certification body)",
+        kind: "Guide",
+        url: "https://www.nqa.com/getmedia/ae12c945-4dbb-4b73-a4e3-996261a540af/NQA-ISO-27001-Implementation-Guide.pdf",
+        note: "A free, publicly distributed guide from a certification body. The verdict rubric and Statement of Applicability structure in this case study follow guidance like this.",
+        free: true,
       },
     ],
   },
@@ -89,7 +100,7 @@ export const ISO_RESOURCES: ResourceGroup[] = [
         title: "Privacy Information Management System — extension to 27001 and 27002",
         publisher: "ISO",
         kind: "Standard",
-        url: "https://www.iso.org/standard/71670",
+        url: "https://www.iso.org/standard/27701",
         note: "Adds controller and processor privacy controls, mapping the ISMS to GDPR obligations.",
         free: false,
       },
@@ -182,7 +193,7 @@ export const DPA_RESOURCES: ResourceGroup[] = [
         title: "Privacy Information Management System",
         publisher: "ISO",
         kind: "Standard",
-        url: "https://www.iso.org/standard/71670",
+        url: "https://www.iso.org/standard/27701",
         note: "Turns Article 28 and Article 32 obligations into auditable controls.",
         free: false,
       },
