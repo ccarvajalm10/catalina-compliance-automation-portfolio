@@ -45,19 +45,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="hero-art p-3 sm:p-5" style={{ background: "transparent", border: "none", boxShadow: "none" }}>
+          <div className="hero-art p-3 sm:p-6" style={{ background: "transparent", border: "none", boxShadow: "none" }}>
             <HeroArt className="w-full" />
-            <div className="mt-3 grid grid-cols-3 gap-3">
-              {cases.map((c) => (
-                <div key={c.slug} className="hero-stat">
-                  <div className="hs-value">{c.metric.after}</div>
-                  <div className="hs-label">was {c.metric.before}</div>
-                </div>
-              ))}
-            </div>
-            <p className="mt-2 text-[11px] text-[#b7afe0]">
-              Demonstrative figures from a controlled build, not measured results.
-            </p>
           </div>
         </div>
       </section>
@@ -156,6 +145,12 @@ export default function Home() {
               </div>
             ))}
           </div>
+          <p className="mt-6 text-[14px] text-[var(--ink-2)]">
+            The tool and this site were built with an AI coding agent inside a code editor.{" "}
+            <Link href="/how-it-was-built" className="font-semibold text-[var(--forest)]">
+              How this was built →
+            </Link>
+          </p>
         </div>
       </section>
 

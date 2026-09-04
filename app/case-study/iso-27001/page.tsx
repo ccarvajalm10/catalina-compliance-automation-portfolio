@@ -53,7 +53,12 @@ export default function CaseStudy() {
           <Link href="/tool" className="font-semibold text-[var(--forest)]">
             live tool
           </Link>{" "}
-          is the output of that pipeline; this page is the reasoning behind it.
+          is the output of that pipeline; this page is the reasoning behind it. For how the
+          tool and this site were actually built, see{" "}
+          <Link href="/how-it-was-built" className="font-semibold text-[var(--forest)]">
+            How this was built
+          </Link>
+          .
         </p>
 
         <div className="mt-6 grid gap-4 rounded-2xl border border-[var(--line)] bg-[var(--surface)] p-5 sm:grid-cols-[1fr_auto_1fr] sm:items-center sm:gap-6">
